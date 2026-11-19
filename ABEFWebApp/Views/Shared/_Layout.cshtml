@@ -1,0 +1,116 @@
+﻿@using ABEFWebApp.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var isHome = string.Equals(currentController, "Home", StringComparison.OrdinalIgnoreCase)
+        && string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase);
+
+    string? firstName = null;
+    if (SignInManager.IsSignedIn(User))
+    {
+        var currentUser = await UserManager.GetUserAsync(User);
+        firstName = string.IsNullOrWhiteSpace(currentUser?.FirstName)
+            ? User.Identity?.Name
+            : currentUser.FirstName;
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(ViewData["Title"] != null ? $"{ViewData["Title"]} – " : "")ABEF – Business Excellence Australia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ABEFWebApp.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-light site-navbar">
+            <div class="container site-navbar-inner">
+                <a class="navbar-brand site-logo" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/bea-logo.png" alt="Business Excellence Australia" asp-append-version="true" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNavbar"
+                        aria-controls="siteNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="siteNavbar">
+                    <ul class="navbar-nav site-nav mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link @(isHome ? "active" : null)"
+                               asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">ABEF</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Events</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Membership</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Knowledge Hub</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact Us</a>
+                        </li>
+                    </ul>
+                    <div class="site-auth ms-lg-auto">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <span class="site-hello">Hello, @firstName</span>
+                            <a class="btn btn-member" asp-area="" asp-controller="Member" asp-action="Dashboard">My Dashboard</a>
+                            <form class="site-auth-logout" asp-area="Identity" asp-page="/Account/Logout"
+                                  asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" class="btn btn-member-outline">Logout</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a class="btn btn-member" asp-area="Identity" asp-page="/Account/Login">Member Login</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="site-main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="site-footer-brand">
+                <p class="site-footer-title">Business Excellence Australia</p>
+                <p class="site-footer-subtitle">Australian Business Excellence Framework</p>
+            </div>
+            <nav class="site-footer-links" aria-label="Footer">
+                <a href="#">About</a>
+                <span class="site-footer-sep" aria-hidden="true">|</span>
+                <a href="#">Contact</a>
+                <span class="site-footer-sep" aria-hidden="true">|</span>
+                <a href="#">Membership</a>
+                <span class="site-footer-sep" aria-hidden="true">|</span>
+                <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </nav>
+            <p class="site-footer-copy">&copy; 2026 Business Excellence Australia</p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

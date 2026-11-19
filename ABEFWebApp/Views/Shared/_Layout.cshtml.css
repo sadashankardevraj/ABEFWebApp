@@ -1,0 +1,14 @@
+﻿/* Scoped layout styles — brand chrome lives in wwwroot/css/site.css */
+
+.btn-primary {
+  color: #fff;
+  background-color: #8B1010;
+  border-color: #8B1010;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #8B1010;
+  border-color: #8B1010;
+}

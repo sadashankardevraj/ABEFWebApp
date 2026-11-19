@@ -1,0 +1,33 @@
+@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout is not null)
+    {
+        Layout = parentLayout.ToString();
+    }
+    else
+    {
+        Layout = "/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<div class="container page-content account-page">
+    <nav class="account-breadcrumb" aria-label="Breadcrumb">
+        <a asp-area="" asp-controller="Member" asp-action="Dashboard">Dashboard</a>
+        <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+        <span>My Account</span>
+    </nav>
+
+    <h1 class="account-page-title">My Account</h1>
+
+    <div class="account-layout">
+        <aside class="account-nav-card">
+            <partial name="_ManageNav" />
+        </aside>
+        <section class="account-content-card">
+            @RenderBody()
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @await RenderSectionAsync("Scripts", required: false)
+}

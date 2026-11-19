@@ -1,0 +1,27 @@
+﻿@page
+@model LogoutModel
+@{
+    ViewData["Title"] = "Log out";
+}
+
+<div class="auth-page">
+    <div class="auth-card">
+        <a class="auth-logo" asp-area="" asp-controller="Home" asp-action="Index">
+            <img src="~/images/bea-logo.png" alt="Business Excellence Australia" asp-append-version="true" />
+        </a>
+        <h1 class="auth-title">Log out</h1>
+        @if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <form class="auth-form" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                <button type="submit" class="btn btn-member auth-submit">Click here to Logout</button>
+            </form>
+        }
+        else
+        {
+            <p class="auth-lead">You have successfully logged out of the application.</p>
+            <div class="auth-links">
+                <a asp-area="" asp-controller="Home" asp-action="Index">Return home</a>
+            </div>
+        }
+    </div>
+</div>

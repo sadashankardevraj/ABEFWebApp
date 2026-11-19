@@ -1,0 +1,77 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Become a Member";
+}
+
+<div class="auth-page">
+    <div class="auth-card auth-card-wide">
+        <a class="auth-logo" asp-area="" asp-controller="Home" asp-action="Index">
+            <img src="~/images/bea-logo.png" alt="Business Excellence Australia" asp-append-version="true" />
+        </a>
+        <h1 class="auth-title">Become a Member</h1>
+
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="auth-form">
+            <div asp-validation-summary="ModelOnly" class="text-danger auth-validation" role="alert"></div>
+
+            <div class="auth-field">
+                <label asp-for="Input.FirstName"></label>
+                <input asp-for="Input.FirstName" class="form-control auth-input" autocomplete="given-name" aria-required="true" />
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="auth-field">
+                <label asp-for="Input.LastName"></label>
+                <input asp-for="Input.LastName" class="form-control auth-input" autocomplete="family-name" aria-required="true" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="auth-field">
+                <label asp-for="Input.Organisation"></label>
+                <input asp-for="Input.Organisation" class="form-control auth-input" autocomplete="organization" />
+                <span asp-validation-for="Input.Organisation" class="text-danger"></span>
+            </div>
+
+            <div class="auth-field">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control auth-input" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="auth-field">
+                <label asp-for="Input.Password"></label>
+                <div class="auth-password-wrap">
+                    <input asp-for="Input.Password" class="form-control auth-input" autocomplete="new-password" aria-required="true" placeholder="Password" />
+                    <button type="button" class="auth-password-toggle" data-password-toggle aria-label="Show password">
+                        <i class="bi bi-eye" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <p class="auth-password-hint">
+                    At least 8 characters, with 1 uppercase, 1 lowercase, 1 number and 1 special character.
+                </p>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="auth-field">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <div class="auth-password-wrap">
+                    <input asp-for="Input.ConfirmPassword" class="form-control auth-input" autocomplete="new-password" aria-required="true" placeholder="Confirm password" />
+                    <button type="button" class="auth-password-toggle" data-password-toggle aria-label="Show password">
+                        <i class="bi bi-eye" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <button id="registerSubmit" type="submit" class="btn btn-member auth-submit">Register</button>
+
+            <div class="auth-links">
+                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Already a member? Log in</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

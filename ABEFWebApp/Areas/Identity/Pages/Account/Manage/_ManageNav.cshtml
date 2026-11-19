@@ -1,0 +1,10 @@
+@using ABEFWebApp.Areas.Identity.Pages.Account.Manage
+@{
+    var profileClass = ManageNavPages.IndexNavClass(ViewContext);
+    var passwordClass = ManageNavPages.ChangePasswordNavClass(ViewContext);
+}
+
+<nav class="account-nav" aria-label="My Account">
+    <a class="account-nav-link @profileClass" asp-page="./Index">My Profile</a>
+    <a class="account-nav-link @passwordClass" asp-page="./ChangePassword">Change Password</a>
+</nav>

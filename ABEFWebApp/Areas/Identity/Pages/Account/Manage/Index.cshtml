@@ -1,0 +1,53 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "My Account";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h2 class="account-panel-title">My Profile</h2>
+
+@if (!string.IsNullOrEmpty(Model.StatusMessage))
+{
+    <div class="auth-status" role="status">@Model.StatusMessage</div>
+}
+
+<form id="profile-form" method="post" class="auth-form">
+    <div asp-validation-summary="ModelOnly" class="text-danger auth-validation" role="alert"></div>
+
+    <div class="auth-field">
+        <label asp-for="Input.Email"></label>
+        <input asp-for="Input.Email" class="form-control auth-input auth-input-readonly" readonly tabindex="-1" />
+        <p class="auth-field-note">Email cannot be changed</p>
+    </div>
+
+    <div class="auth-field">
+        <label asp-for="Input.FirstName"></label>
+        <input asp-for="Input.FirstName" class="form-control auth-input" />
+        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="auth-field">
+        <label asp-for="Input.LastName"></label>
+        <input asp-for="Input.LastName" class="form-control auth-input" />
+        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+    </div>
+
+    <div class="auth-field">
+        <label asp-for="Input.Organisation"></label>
+        <input asp-for="Input.Organisation" class="form-control auth-input" />
+        <span asp-validation-for="Input.Organisation" class="text-danger"></span>
+    </div>
+
+    <div class="auth-field">
+        <label asp-for="Input.PhoneNumber"></label>
+        <input asp-for="Input.PhoneNumber" class="form-control auth-input" placeholder="Optional" />
+        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-member auth-submit">Save</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

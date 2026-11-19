@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "My Dashboard";
+    var firstName = ViewData["FirstName"] as string ?? "Member";
+    var role = ViewData["Role"] as string ?? "Member";
+}
+
+<div class="container page-content">
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Welcome, @firstName</h1>
+        <p class="dashboard-role">Role: <span>@role</span></p>
+    </div>
+
+    <div class="dashboard-grid">
+        <a class="dashboard-card" href="#">
+            <i class="bi bi-journal-bookmark-fill" aria-hidden="true"></i>
+            <h2>Knowledge Hub</h2>
+            <p>Browse guides, resources and learning materials.</p>
+        </a>
+        <a class="dashboard-card" href="#">
+            <i class="bi bi-play-circle-fill" aria-hidden="true"></i>
+            <h2>Start Assessment</h2>
+            <p>Begin a new organisational self-assessment.</p>
+        </a>
+        <a class="dashboard-card" href="#">
+            <i class="bi bi-clipboard2-data-fill" aria-hidden="true"></i>
+            <h2>My Assessments</h2>
+            <p>Review assessments you have started or completed.</p>
+        </a>
+        <a class="dashboard-card" asp-area="Identity" asp-page="/Account/Manage/Index">
+            <i class="bi bi-person-badge-fill" aria-hidden="true"></i>
+            <h2>My Profile</h2>
+            <p>Update your name, organisation and contact details.</p>
+        </a>
+    </div>
+</div>
