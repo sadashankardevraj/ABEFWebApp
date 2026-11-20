@@ -1,0 +1,58 @@
+@{
+    ViewData["Title"] = "Why Adopt ABEF?";
+}
+
+<section class="abef-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Abef" asp-action="Index">ABEF</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>Why Adopt ABEF?</span>
+        </nav>
+
+        <h1 class="abef-page-title">Why Adopt ABEF?</h1>
+        <p class="abef-page-lead">
+            ABEF helps organisations line up strategy, people and day-to-day work so improvement
+            is focused, evidence-based and lasting — not scattered effort.
+        </p>
+
+        <div class="abef-feature-grid">
+            <article class="abef-feature-card">
+                <i class="bi bi-compass-fill" aria-hidden="true"></i>
+                <h2>Clear direction</h2>
+                <p>Give leaders and teams a shared view of where the organisation is heading.</p>
+            </article>
+            <article class="abef-feature-card">
+                <i class="bi bi-bar-chart-fill" aria-hidden="true"></i>
+                <h2>Evidence-based decisions</h2>
+                <p>Use facts and results to choose what to improve next, not guesswork alone.</p>
+            </article>
+            <article class="abef-feature-card">
+                <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
+                <h2>Continuous improvement</h2>
+                <p>Build a steady habit of review and learning across the whole organisation.</p>
+            </article>
+        </div>
+
+        <div class="abef-diff-block">
+            <h2 class="abef-section-heading">How ABEF is different</h2>
+            <p>
+                Many tools look at one part of the business. ABEF looks at the organisation as a whole —
+                leadership, planning, people, customers, processes, information and results together.
+            </p>
+            <p>
+                That joined-up view makes it easier to see gaps, agree priorities, and improve in a way
+                that lasts beyond a single project or review cycle.
+            </p>
+        </div>
+
+        <div class="abef-video-box" role="note">
+            <i class="bi bi-play-circle" aria-hidden="true"></i>
+            <p>Explainer video coming soon</p>
+        </div>
+
+        <a class="abef-back-link" asp-controller="Abef" asp-action="Index">← Back to ABEF</a>
+    </div>
+</section>

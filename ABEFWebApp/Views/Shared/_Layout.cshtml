@@ -7,6 +7,8 @@
     var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
     var isHome = string.Equals(currentController, "Home", StringComparison.OrdinalIgnoreCase)
         && string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase);
+    var isAbef = string.Equals(currentController, "Abef", StringComparison.OrdinalIgnoreCase);
+    var isContact = string.Equals(currentController, "Contact", StringComparison.OrdinalIgnoreCase);
 
     string? firstName = null;
     if (SignInManager.IsSignedIn(User))
@@ -50,7 +52,8 @@
                                asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">ABEF</a>
+                            <a class="nav-link @(isAbef ? "active" : null)"
+                               asp-area="" asp-controller="Abef" asp-action="Index">ABEF</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Events</a>
@@ -62,7 +65,8 @@
                             <a class="nav-link" href="#">Knowledge Hub</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact Us</a>
+                            <a class="nav-link @(isContact ? "active" : null)"
+                               asp-area="" asp-controller="Contact" asp-action="Index">Contact Us</a>
                         </li>
                     </ul>
                     <div class="site-auth ms-lg-auto">
@@ -98,7 +102,7 @@
             <nav class="site-footer-links" aria-label="Footer">
                 <a href="#">About</a>
                 <span class="site-footer-sep" aria-hidden="true">|</span>
-                <a href="#">Contact</a>
+                <a asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
                 <span class="site-footer-sep" aria-hidden="true">|</span>
                 <a href="#">Membership</a>
                 <span class="site-footer-sep" aria-hidden="true">|</span>

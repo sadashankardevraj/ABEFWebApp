@@ -21,7 +21,7 @@
                 </p>
                 <div class="home-hero-actions">
                     <a class="btn btn-member" asp-area="Identity" asp-page="/Account/Register">Become a Member</a>
-                    <a class="btn btn-member" href="#">Explore ABEF</a>
+                    <a class="btn btn-member" asp-controller="Abef" asp-action="Index">Explore ABEF</a>
                 </div>
             </div>
 
@@ -29,10 +29,10 @@
                 <div class="home-hero-panel">
                     <h2 class="home-hero-panel-title">Start your ABEF journey</h2>
                     <ul class="home-hero-panel-links">
-                        <li><a href="#">Why ABEF?</a></li>
-                        <li><a href="#">7 Categories</a></li>
-                        <li><a href="#">Learn ADRI</a></li>
-                        <li><a href="#">Self-Assessment</a></li>
+                        <li><a asp-controller="Abef" asp-action="Why">Why ABEF?</a></li>
+                        <li><a asp-controller="Abef" asp-action="What">7 Categories</a></li>
+                        <li><a asp-controller="Abef" asp-action="HowItWorks">Learn ADRI</a></li>
+                        <li><a asp-controller="Member" asp-action="Dashboard">Self-Assessment</a></li>
                     </ul>
                 </div>
             </aside>
@@ -95,6 +95,6 @@
         <p class="home-explore-text">
             Discover how the Australian Business Excellence Framework helps organisations improve performance.
         </p>
-        <a class="btn btn-member" href="#">Explore ABEF</a>
+        <a class="btn btn-member" asp-controller="Abef" asp-action="Index">Explore ABEF</a>
     </div>
 </section>

@@ -7,4 +7,5 @@ namespace ABEFWebApp.Data;
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
     : IdentityDbContext<ApplicationUser>(options)
 {
+    public DbSet<ContactMessage> ContactMessages => Set<ContactMessage>();
 }

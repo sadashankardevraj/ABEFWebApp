@@ -1,0 +1,60 @@
+@{
+    ViewData["Title"] = "How ABEF Works";
+}
+
+<section class="abef-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Abef" asp-action="Index">ABEF</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>How ABEF Works</span>
+        </nav>
+
+        <h1 class="abef-page-title">How ABEF Works</h1>
+        <p class="abef-page-lead">
+            Follow a clear path from learning the framework to reflecting, assessing and reviewing results.
+        </p>
+
+        <h2 class="abef-section-heading">A simple journey through the Digital ABEF</h2>
+        <div class="abef-steps-grid">
+            <article class="abef-step-card">
+                <span class="abef-step-number">1</span>
+                <h3>Explore the framework</h3>
+                <p>Get familiar with the overall structure and language of ABEF.</p>
+            </article>
+            <article class="abef-step-card">
+                <span class="abef-step-number">2</span>
+                <h3>Select one of 7 categories</h3>
+                <p>Choose a category that matches the area you want to improve.</p>
+            </article>
+            <article class="abef-step-card">
+                <span class="abef-step-number">3</span>
+                <h3>Open a category item</h3>
+                <p>Focus on one item so your reflection stays clear and practical.</p>
+            </article>
+            <article class="abef-step-card">
+                <span class="abef-step-number">4</span>
+                <h3>Use ADRI to reflect</h3>
+                <p>Review approach, deployment, results and improvement for that item.</p>
+            </article>
+            <article class="abef-step-card">
+                <span class="abef-step-number">5</span>
+                <h3>Complete self-assessment</h3>
+                <p>Capture your evidence and judgements in a structured assessment.</p>
+            </article>
+            <article class="abef-step-card">
+                <span class="abef-step-number">6</span>
+                <h3>Review results</h3>
+                <p>See strengths and gaps, then decide what to improve next.</p>
+            </article>
+        </div>
+
+        <div class="abef-page-actions">
+            <a class="btn btn-member" href="#">View 7 Categories</a>
+        </div>
+
+        <a class="abef-back-link" asp-controller="Abef" asp-action="Index">← Back to ABEF</a>
+    </div>
+</section>

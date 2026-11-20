@@ -1,0 +1,109 @@
+@{
+    ViewData["Title"] = "ABEF";
+}
+
+<section class="abef-hero">
+    <div class="container">
+        <div class="abef-hero-inner">
+            <p class="home-section-label">The Framework</p>
+            <h1 class="abef-hero-title">Australian Business Excellence Framework</h1>
+            <p class="abef-hero-tagline">Guiding Sustainable Performance</p>
+            <p class="abef-hero-text">
+                ABEF gives organisations a clear way to look at how they lead, plan, work and improve.
+                It helps teams focus on what matters so performance can grow in a steady, lasting way.
+            </p>
+            <p class="abef-hero-text">
+                Whether you are starting out or already improving, the framework offers a shared language
+                for excellence across the whole organisation.
+            </p>
+            <div class="home-hero-actions">
+                <a class="btn btn-member" asp-controller="Abef" asp-action="HowItWorks">How ABEF Works</a>
+                <a class="btn btn-member" asp-area="Identity" asp-page="/Account/Register">Become a Member</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="abef-journey">
+    <div class="container">
+        <h2 class="abef-section-title">Start Your Journey</h2>
+        <p class="abef-section-text">
+            Choose a path below to learn the framework step by step.
+        </p>
+        <div class="abef-journey-grid">
+            <a class="abef-journey-card" asp-controller="Abef" asp-action="Why">
+                <i class="bi bi-lightbulb-fill" aria-hidden="true"></i>
+                <h3>Why ABEF?</h3>
+                <p>See why organisations use the framework to improve.</p>
+            </a>
+            <a class="abef-journey-card" asp-controller="Abef" asp-action="What">
+                <i class="bi bi-info-circle-fill" aria-hidden="true"></i>
+                <h3>What is ABEF?</h3>
+                <p>A simple overview of what the framework covers.</p>
+            </a>
+            <a class="abef-journey-card" asp-controller="Abef" asp-action="HowItWorks">
+                <i class="bi bi-diagram-3-fill" aria-hidden="true"></i>
+                <h3>How ABEF Works</h3>
+                <p>Learn how the pieces fit together in practice.</p>
+            </a>
+            <a class="abef-journey-card abef-journey-card-soon" href="#">
+                <span class="abef-badge abef-badge-soon">Coming soon</span>
+                <i class="bi bi-grid-3x3-gap-fill" aria-hidden="true"></i>
+                <h3>Explore the 7 Categories</h3>
+                <p>Browse the seven areas that shape excellence.</p>
+            </a>
+            <a class="abef-journey-card abef-journey-card-soon" href="#">
+                <span class="abef-badge abef-badge-soon">Coming soon</span>
+                <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
+                <h3>Learn ADRI</h3>
+                <p>Understand Approach, Deployment, Results and Improvement.</p>
+            </a>
+            <a class="abef-journey-card abef-journey-card-soon" href="#">
+                <span class="abef-badge abef-badge-soon">Coming soon</span>
+                <i class="bi bi-bookmark-star-fill" aria-hidden="true"></i>
+                <h3>The Principles</h3>
+                <p>Explore the guiding ideas behind the framework.</p>
+            </a>
+            <a class="abef-journey-card" asp-controller="Member" asp-action="Dashboard">
+                <span class="abef-badge abef-badge-member">Members only</span>
+                <i class="bi bi-clipboard2-check-fill" aria-hidden="true"></i>
+                <h3>Assessment &amp; Scoring</h3>
+                <p>Start assessing performance with member tools.</p>
+            </a>
+            <a class="abef-journey-card abef-journey-card-soon" href="#">
+                <span class="abef-badge abef-badge-member">Members only</span>
+                <i class="bi bi-building" aria-hidden="true"></i>
+                <h3>Case Studies</h3>
+                <p>See how other organisations apply ABEF.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="home-audience abef-audience">
+    <div class="container">
+        <h2 class="home-audience-title">Who is this for?</h2>
+        <div class="home-audience-grid">
+            <article class="home-audience-card">
+                <i class="bi bi-people-fill home-audience-icon" aria-hidden="true"></i>
+                <h3>Leaders &amp; Boards</h3>
+                <p>Set direction and govern for sustainable performance.</p>
+            </article>
+            <article class="home-audience-card">
+                <i class="bi bi-tools home-audience-icon" aria-hidden="true"></i>
+                <h3>Practitioners</h3>
+                <p>Apply the framework in daily improvement work.</p>
+            </article>
+            <article class="home-audience-card">
+                <i class="bi bi-clipboard-check home-audience-icon" aria-hidden="true"></i>
+                <h3>Assessors</h3>
+                <p>Evaluate organisations using ADRI and the assessment matrix.</p>
+            </article>
+            <article class="home-audience-card">
+                <i class="bi bi-mortarboard-fill home-audience-icon" aria-hidden="true"></i>
+                <h3>Educators</h3>
+                <p>Teach business excellence concepts and practice.</p>
+            </article>
+        </div>
+    </div>
+</section>

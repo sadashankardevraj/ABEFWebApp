@@ -1,0 +1,79 @@
+@{
+    ViewData["Title"] = "What is the ABEF?";
+}
+
+<section class="abef-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Abef" asp-action="Index">ABEF</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>What is the ABEF?</span>
+        </nav>
+
+        <h1 class="abef-page-title">What is the ABEF?</h1>
+        <p class="abef-page-lead">
+            The framework has seven categories. Two Drivers set direction, four Enablers support how the work gets done, and Results shows the outcomes.
+        </p>
+
+        <h2 class="abef-section-heading">The 7 categories</h2>
+        <div class="abef-category-grid">
+            <article class="abef-category-card">
+                <span class="abef-category-number">1</span>
+                <span class="abef-category-label abef-label-driver">Driver</span>
+                <h3>Leadership, Culture and Governance</h3>
+                <p>Sets direction, culture and good governance.</p>
+            </article>
+            <article class="abef-category-card">
+                <span class="abef-category-number">2</span>
+                <span class="abef-category-label abef-label-driver">Driver</span>
+                <h3>Customers and other Stakeholders</h3>
+                <p>Understands and delivers value to customers and other stakeholders.</p>
+            </article>
+            <article class="abef-category-card">
+                <span class="abef-category-number">3</span>
+                <span class="abef-category-label abef-label-enabler">Enabler</span>
+                <h3>Strategy and Planning</h3>
+                <p>Turns direction into clear plans and goals.</p>
+            </article>
+            <article class="abef-category-card">
+                <span class="abef-category-number">4</span>
+                <span class="abef-category-label abef-label-enabler">Enabler</span>
+                <h3>People</h3>
+                <p>Develops, supports and engages the workforce.</p>
+            </article>
+            <article class="abef-category-card">
+                <span class="abef-category-number">5</span>
+                <span class="abef-category-label abef-label-enabler">Enabler</span>
+                <h3>Information and Knowledge</h3>
+                <p>Uses data and knowledge to make better decisions.</p>
+            </article>
+            <article class="abef-category-card">
+                <span class="abef-category-number">6</span>
+                <span class="abef-category-label abef-label-enabler">Enabler</span>
+                <h3>Process Management, Improvement and Innovation</h3>
+                <p>Designs, improves and innovates how work gets done.</p>
+            </article>
+            <article class="abef-category-card">
+                <span class="abef-category-number">7</span>
+                <span class="abef-category-label abef-label-result">Result</span>
+                <h3>Results and Sustainable Performance</h3>
+                <p>Measures outcomes and long-term performance.</p>
+            </article>
+        </div>
+
+        <div class="abef-mini-grid">
+            <article class="abef-mini-card">
+                <h2>9 Principles</h2>
+                <p>Short guiding ideas that shape how excellence is understood and practised.</p>
+            </article>
+            <article class="abef-mini-card">
+                <h2>ADRI</h2>
+                <p>Approach, Deployment, Results and Improvement — a simple way to reflect on each item.</p>
+            </article>
+        </div>
+
+        <a class="abef-back-link" asp-controller="Abef" asp-action="Index">← Back to ABEF</a>
+    </div>
+</section>
