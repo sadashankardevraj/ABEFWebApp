@@ -13,9 +13,12 @@
         || string.Equals(currentController, "Principles", StringComparison.OrdinalIgnoreCase);
     var isContact = string.Equals(currentController, "Contact", StringComparison.OrdinalIgnoreCase);
     var isEvents = string.Equals(currentController, "Events", StringComparison.OrdinalIgnoreCase);
+    var isMembership = string.Equals(currentController, "Membership", StringComparison.OrdinalIgnoreCase);
+    var isKnowledgeHub = string.Equals(currentController, "KnowledgeHub", StringComparison.OrdinalIgnoreCase);
+    var isSignedIn = SignInManager.IsSignedIn(User);
 
     string? firstName = null;
-    if (SignInManager.IsSignedIn(User))
+    if (isSignedIn)
     {
         var currentUser = await UserManager.GetUserAsync(User);
         firstName = string.IsNullOrWhiteSpace(currentUser?.FirstName)
@@ -64,10 +67,18 @@
                                asp-area="" asp-controller="Events" asp-action="Index">Events</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Membership</a>
+                            <a class="nav-link @(isMembership ? "active" : null)"
+                               asp-area="" asp-controller="Membership" asp-action="Index">Membership</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Knowledge Hub</a>
+                            <a class="nav-link @(isKnowledgeHub ? "active" : null)"
+                               asp-area="" asp-controller="KnowledgeHub" asp-action="Index">
+                                Knowledge Hub
+                                @if (!isSignedIn)
+                                {
+                                    <i class="bi bi-lock-fill nav-lock-icon" aria-hidden="true" title="Members only"></i>
+                                }
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link @(isContact ? "active" : null)"
@@ -75,7 +86,7 @@
                         </li>
                     </ul>
                     <div class="site-auth ms-lg-auto">
-                        @if (SignInManager.IsSignedIn(User))
+                        @if (isSignedIn)
                         {
                             <span class="site-hello">Hello, @firstName</span>
                             <a class="btn btn-member" asp-area="" asp-controller="Member" asp-action="Dashboard">My Dashboard</a>
@@ -109,7 +120,7 @@
                 <span class="site-footer-sep" aria-hidden="true">|</span>
                 <a asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
                 <span class="site-footer-sep" aria-hidden="true">|</span>
-                <a href="#">Membership</a>
+                <a asp-area="" asp-controller="Membership" asp-action="Index">Membership</a>
                 <span class="site-footer-sep" aria-hidden="true">|</span>
                 <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </nav>

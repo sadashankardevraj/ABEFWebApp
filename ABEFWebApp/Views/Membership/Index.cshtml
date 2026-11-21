@@ -1,0 +1,88 @@
+@{
+    ViewData["Title"] = "Membership";
+}
+
+<section class="abef-page membership-page">
+    <div class="container">
+        <p class="item-page-eyebrow">Membership</p>
+        <h1 class="abef-page-title">Become a Member of Business Excellence Australia</h1>
+        <p class="abef-page-lead">
+            Join a community that helps organisations lead, improve and sustain better performance.
+            Membership gives you practical tools, learning and connections to put excellence into everyday work.
+        </p>
+
+        <h2 class="abef-section-heading">Member benefits</h2>
+        <div class="abef-feature-grid membership-benefits-grid">
+            <article class="abef-feature-card">
+                <i class="bi bi-journal-bookmark-fill" aria-hidden="true"></i>
+                <h2>Knowledge Hub access</h2>
+                <p>Use guides, resources and learning material that support excellence practice.</p>
+            </article>
+            <article class="abef-feature-card">
+                <i class="bi bi-clipboard2-check-fill" aria-hidden="true"></i>
+                <h2>Organisational self-assessment</h2>
+                <p>Assess your organisation with structured tools and a clear view of strengths and gaps.</p>
+            </article>
+            <article class="abef-feature-card">
+                <i class="bi bi-calendar-event-fill" aria-hidden="true"></i>
+                <h2>Events and webinars</h2>
+                <p>Join sessions that share practical ideas, case insights and peer learning.</p>
+            </article>
+            <article class="abef-feature-card">
+                <i class="bi bi-people-fill" aria-hidden="true"></i>
+                <h2>Connect with practitioners</h2>
+                <p>Build relationships with people who are applying excellence work in real organisations.</p>
+            </article>
+        </div>
+
+        <h2 class="abef-section-heading">Membership plans</h2>
+        <div class="membership-plans-grid">
+            <article class="membership-plan-card">
+                <h3>Student</h3>
+                <p class="membership-plan-price">$25 <span>per year</span></p>
+                <p class="membership-plan-for">For current students</p>
+                <a class="btn btn-member membership-plan-btn" asp-area="Identity" asp-page="/Account/Register">Join now</a>
+            </article>
+
+            <article class="membership-plan-card">
+                <h3>Practitioner / Academic</h3>
+                <p class="membership-plan-price">$280 <span>per year</span></p>
+                <p class="membership-plan-for">For individual practitioners and academics</p>
+                <a class="btn btn-member membership-plan-btn" asp-area="Identity" asp-page="/Account/Register">Join now</a>
+            </article>
+
+            <article class="membership-plan-card">
+                <h3>Foundation</h3>
+                <p class="membership-plan-price">$280 <span>per year</span></p>
+                <p class="membership-plan-for">For small not-for-profit or start-up organisations</p>
+                <a class="btn btn-member membership-plan-btn" asp-area="Identity" asp-page="/Account/Register">Join now</a>
+            </article>
+
+            <article class="membership-plan-card membership-plan-card-popular">
+                <span class="membership-plan-badge">Most popular</span>
+                <h3>Business</h3>
+                <p class="membership-plan-price">$1,950 <span>per year</span></p>
+                <p class="membership-plan-for">For small and medium businesses</p>
+                <a class="btn btn-member membership-plan-btn" asp-area="Identity" asp-page="/Account/Register">Join now</a>
+            </article>
+
+            <article class="membership-plan-card">
+                <h3>Corporation</h3>
+                <p class="membership-plan-price">$3,970 <span>per year</span></p>
+                <p class="membership-plan-for">For large organisations</p>
+                <a class="btn btn-member membership-plan-btn" asp-area="Identity" asp-page="/Account/Register">Join now</a>
+            </article>
+        </div>
+
+        <p class="membership-plans-note">
+            Prices are per year and shown in AUD. Please check with BEA for current pricing.
+        </p>
+
+        <div class="membership-already">
+            <h2 class="abef-section-heading">Already a member?</h2>
+            <p>
+                <a class="membership-login-link" asp-area="Identity" asp-page="/Account/Login">Member Login</a>
+            </p>
+        </div>
+    </div>
+</section>

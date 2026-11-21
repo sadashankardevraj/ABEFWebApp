@@ -1,5 +1,8 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ABEFWebApp.Models.ApplicationUser> SignInManager
 @{
     ViewData["Title"] = "ABEF";
+    var isSignedIn = SignInManager.IsSignedIn(User);
 }
 
 <section class="abef-hero">
@@ -61,18 +64,38 @@
                 <h3>The Principles</h3>
                 <p>Explore the guiding ideas behind the framework.</p>
             </a>
-            <a class="abef-journey-card" asp-controller="Member" asp-action="Dashboard">
-                <span class="abef-badge abef-badge-member">Members only</span>
-                <i class="bi bi-clipboard2-check-fill" aria-hidden="true"></i>
-                <h3>Assessment &amp; Scoring</h3>
-                <p>Start assessing performance with member tools.</p>
-            </a>
-            <a class="abef-journey-card abef-journey-card-soon" href="#">
-                <span class="abef-badge abef-badge-soon">Coming soon</span>
-                <i class="bi bi-building" aria-hidden="true"></i>
-                <h3>Case Studies</h3>
-                <p>See how other organisations apply ABEF.</p>
-            </a>
+            @if (isSignedIn)
+            {
+                <a class="abef-journey-card" asp-controller="Assessment" asp-action="Index">
+                    <span class="abef-badge abef-badge-member">Members only</span>
+                    <i class="bi bi-clipboard2-check-fill" aria-hidden="true"></i>
+                    <h3>Assessment &amp; Scoring</h3>
+                    <p>Start assessing performance with member tools.</p>
+                </a>
+                <a class="abef-journey-card" asp-controller="KnowledgeHub" asp-action="Index">
+                    <span class="abef-badge abef-badge-member">Members only</span>
+                    <i class="bi bi-building" aria-hidden="true"></i>
+                    <h3>Case Studies</h3>
+                    <p>See how other organisations apply ABEF.</p>
+                </a>
+            }
+            else
+            {
+                <a class="abef-journey-card" asp-area="Identity" asp-page="/Account/Login"
+                   asp-route-returnUrl="@(Url.Action("Index", "Assessment"))">
+                    <span class="abef-badge abef-badge-member">Members only - please log in</span>
+                    <i class="bi bi-clipboard2-check-fill" aria-hidden="true"></i>
+                    <h3>Assessment &amp; Scoring</h3>
+                    <p>Start assessing performance with member tools.</p>
+                </a>
+                <a class="abef-journey-card" asp-area="Identity" asp-page="/Account/Login"
+                   asp-route-returnUrl="@(Url.Action("Index", "KnowledgeHub"))">
+                    <span class="abef-badge abef-badge-member">Members only - please log in</span>
+                    <i class="bi bi-building" aria-hidden="true"></i>
+                    <h3>Case Studies</h3>
+                    <p>See how other organisations apply ABEF.</p>
+                </a>
+            }
         </div>
     </div>
 </section>

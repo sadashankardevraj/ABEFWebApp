@@ -1,27 +1,44 @@
+@model ABEFWebApp.Models.ViewModels.MemberDashboardViewModel
 @{
     ViewData["Title"] = "My Dashboard";
-    var firstName = ViewData["FirstName"] as string ?? "Member";
-    var role = ViewData["Role"] as string ?? "Member";
 }
 
-<div class="container page-content">
+<div class="container page-content dashboard-page">
     <div class="dashboard-header">
-        <h1 class="dashboard-title">Welcome, @firstName</h1>
-        <p class="dashboard-role">Role: <span>@role</span></p>
+        <h1 class="dashboard-title">Welcome back, @Model.FirstName</h1>
+        <div class="dashboard-meta">
+            <span class="dashboard-role-badge">@Model.Role</span>
+            @if (!string.IsNullOrWhiteSpace(Model.Organisation))
+            {
+                <span class="dashboard-org">@Model.Organisation</span>
+            }
+        </div>
     </div>
 
+    @if (Model.ShowProfileNote)
+    {
+        <div class="dashboard-profile-note" role="status">
+            <i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>
+            <span>
+                Complete your profile —
+                <a asp-area="Identity" asp-page="/Account/Manage/Index">My Profile</a>
+            </span>
+        </div>
+    }
+
     <div class="dashboard-grid">
-        <a class="dashboard-card" href="#">
+        <a class="dashboard-card" asp-controller="KnowledgeHub" asp-action="Index">
             <i class="bi bi-journal-bookmark-fill" aria-hidden="true"></i>
             <h2>Knowledge Hub</h2>
             <p>Browse guides, resources and learning materials.</p>
         </a>
-        <a class="dashboard-card" href="#">
+        <a class="dashboard-card" asp-controller="Assessment" asp-action="Index">
             <i class="bi bi-play-circle-fill" aria-hidden="true"></i>
             <h2>Start Assessment</h2>
             <p>Begin a new organisational self-assessment.</p>
         </a>
-        <a class="dashboard-card" href="#">
+        <a class="dashboard-card" asp-controller="Assessment" asp-action="Index">
+            <span class="abef-badge abef-badge-soon">Coming soon</span>
             <i class="bi bi-clipboard2-data-fill" aria-hidden="true"></i>
             <h2>My Assessments</h2>
             <p>Review assessments you have started or completed.</p>
@@ -31,5 +48,62 @@
             <h2>My Profile</h2>
             <p>Update your name, organisation and contact details.</p>
         </a>
+
+        @if (Model.CanReviewAssessments)
+        {
+            <a class="dashboard-card" asp-controller="Evaluator" asp-action="Index">
+                <i class="bi bi-clipboard2-check-fill" aria-hidden="true"></i>
+                <h2>Review Assessments</h2>
+                <p>Review assessments submitted for evaluation.</p>
+            </a>
+        }
+
+        @if (Model.IsAdmin)
+        {
+            <a class="dashboard-card dashboard-card-admin" asp-controller="Admin" asp-action="Index">
+                <i class="bi bi-shield-lock-fill" aria-hidden="true"></i>
+                <h2>Admin Panel</h2>
+                <p>Manage users, content and system settings.</p>
+            </a>
+        }
     </div>
+
+    <section class="dashboard-section">
+        <div class="dashboard-section-head">
+            <h2 class="dashboard-section-title">Upcoming events</h2>
+            <a class="dashboard-section-link" asp-controller="Events" asp-action="Index">View all</a>
+        </div>
+
+        @if (Model.UpcomingEvents.Count == 0)
+        {
+            <p class="dashboard-empty">No upcoming events.</p>
+        }
+        else
+        {
+            <div class="dashboard-events">
+                @foreach (var evt in Model.UpcomingEvents)
+                {
+                    <a class="dashboard-event-card" asp-controller="Events" asp-action="Index">
+                        <div class="event-date-box">
+                            <span class="event-date-day">@evt.Date.Day.ToString("00")</span>
+                            <span class="event-date-month">@evt.Date.ToString("MMM")</span>
+                        </div>
+                        <div class="dashboard-event-body">
+                            <h3>@evt.Title</h3>
+                            <span class="dashboard-event-link">View events →</span>
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+    </section>
+
+    <section class="dashboard-section">
+        <h2 class="dashboard-section-title">Continue learning</h2>
+        <div class="dashboard-learn-links">
+            <a asp-controller="Categories" asp-action="Index">7 Categories</a>
+            <a asp-controller="Abef" asp-action="Adri">Learn ADRI</a>
+            <a asp-controller="Principles" asp-action="Index">9 Principles</a>
+        </div>
+    </section>
 </div>

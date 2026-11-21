@@ -53,5 +53,33 @@ public static class IdentityDataSeeder
         {
             await userManager.AddToRoleAsync(admin, "Admin");
         }
+
+        const string evaluatorEmail = "evaluator@bea.test";
+        var evaluator = await userManager.FindByEmailAsync(evaluatorEmail);
+        if (evaluator is null)
+        {
+            evaluator = new ApplicationUser
+            {
+                UserName = evaluatorEmail,
+                Email = evaluatorEmail,
+                EmailConfirmed = true,
+                FirstName = "Evaluator",
+                LastName = "User",
+                Organisation = "Business Excellence Australia"
+            };
+
+            var createResult = await userManager.CreateAsync(evaluator, "Evaluator@12345");
+            if (!createResult.Succeeded)
+            {
+                logger.LogError("Failed to create evaluator user: {Errors}",
+                    string.Join("; ", createResult.Errors.Select(e => e.Description)));
+                return;
+            }
+        }
+
+        if (!await userManager.IsInRoleAsync(evaluator, "Evaluator"))
+        {
+            await userManager.AddToRoleAsync(evaluator, "Evaluator");
+        }
     }
 }

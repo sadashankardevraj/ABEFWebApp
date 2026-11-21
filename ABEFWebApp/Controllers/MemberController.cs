@@ -1,7 +1,10 @@
+using ABEFWebApp.Data;
 using ABEFWebApp.Models;
+using ABEFWebApp.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ABEFWebApp.Controllers;
 
@@ -9,10 +12,12 @@ namespace ABEFWebApp.Controllers;
 public class MemberController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly ApplicationDbContext _db;
 
-    public MemberController(UserManager<ApplicationUser> userManager)
+    public MemberController(UserManager<ApplicationUser> userManager, ApplicationDbContext db)
     {
         _userManager = userManager;
+        _db = db;
     }
 
     public async Task<IActionResult> Dashboard()
@@ -24,8 +29,49 @@ public class MemberController : Controller
         }
 
         var roles = await _userManager.GetRolesAsync(user);
-        ViewData["FirstName"] = string.IsNullOrWhiteSpace(user.FirstName) ? "Member" : user.FirstName;
-        ViewData["Role"] = roles.FirstOrDefault() ?? "Member";
-        return View();
+        var role = ResolveDisplayRole(roles);
+        var isAdmin = roles.Contains("Admin");
+        var canReview = isAdmin || roles.Contains("Evaluator");
+
+        var upcomingEvents = await _db.Events
+            .AsNoTracking()
+            .Where(e => e.IsPublished && e.Date >= DateTime.Today)
+            .OrderBy(e => e.Date)
+            .Take(2)
+            .Select(e => new DashboardEventViewModel
+            {
+                Title = e.Title,
+                Date = e.Date
+            })
+            .ToListAsync();
+
+        var viewModel = new MemberDashboardViewModel
+        {
+            FirstName = string.IsNullOrWhiteSpace(user.FirstName) ? "Member" : user.FirstName,
+            Role = role,
+            Organisation = user.Organisation,
+            ShowProfileNote = string.IsNullOrWhiteSpace(user.PhoneNumber)
+                || string.IsNullOrWhiteSpace(user.Organisation),
+            CanReviewAssessments = canReview,
+            IsAdmin = isAdmin,
+            UpcomingEvents = upcomingEvents
+        };
+
+        return View(viewModel);
+    }
+
+    private static string ResolveDisplayRole(IList<string> roles)
+    {
+        if (roles.Contains("Admin"))
+        {
+            return "Admin";
+        }
+
+        if (roles.Contains("Evaluator"))
+        {
+            return "Evaluator";
+        }
+
+        return "Member";
     }
 }

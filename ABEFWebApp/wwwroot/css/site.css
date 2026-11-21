@@ -307,36 +307,87 @@ body {
 }
 
 /* Member dashboard */
+.dashboard-page {
+  padding-bottom: 2.5rem;
+}
+
 .dashboard-header {
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.25rem;
 }
 
 .dashboard-title {
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.65rem;
   color: var(--bea-navy);
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
-.dashboard-role {
-  margin: 0;
-  color: rgba(10, 26, 58, 0.75);
-  font-size: 0.95rem;
+.dashboard-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 0.85rem;
 }
 
-.dashboard-role span {
+.dashboard-role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(139, 16, 16, 0.1);
+  color: var(--bea-red);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.dashboard-org {
+  color: rgba(10, 26, 58, 0.72);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.dashboard-profile-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin-bottom: 1.35rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid #f0d48a;
+  border-radius: 0.65rem;
+  background: #fff8e6;
+  color: #6a5200;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.dashboard-profile-note i {
+  margin-top: 0.1rem;
+  color: #c79100;
+}
+
+.dashboard-profile-note a {
   color: var(--bea-red);
   font-weight: 700;
+  text-decoration: none;
+}
+
+.dashboard-profile-note a:hover,
+.dashboard-profile-note a:focus {
+  text-decoration: underline;
 }
 
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
+  margin-bottom: 2.35rem;
 }
 
 .dashboard-card {
+  position: relative;
   display: block;
   background: #fff;
   border: 1px solid rgba(10, 26, 58, 0.08);
@@ -348,12 +399,22 @@ body {
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
+.dashboard-card-admin {
+  border-color: var(--bea-navy);
+  border-width: 2px;
+}
+
 .dashboard-card:hover,
 .dashboard-card:focus {
   border-color: rgba(139, 16, 16, 0.35);
   box-shadow: 0 8px 20px rgba(10, 26, 58, 0.08);
   color: inherit;
   text-decoration: none;
+}
+
+.dashboard-card-admin:hover,
+.dashboard-card-admin:focus {
+  border-color: var(--bea-navy);
 }
 
 .dashboard-card i {
@@ -377,6 +438,116 @@ body {
   line-height: 1.5;
 }
 
+.dashboard-section {
+  margin-bottom: 2.15rem;
+}
+
+.dashboard-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard-section-title {
+  margin: 0 0 1rem;
+  color: var(--bea-navy);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.dashboard-section-head .dashboard-section-title {
+  margin-bottom: 0;
+}
+
+.dashboard-section-link {
+  color: var(--bea-red);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.dashboard-section-link:hover,
+.dashboard-section-link:focus {
+  color: #6f0d0d;
+  text-decoration: underline;
+}
+
+.dashboard-empty {
+  margin: 0;
+  color: rgba(10, 26, 58, 0.65);
+  font-size: 0.95rem;
+}
+
+.dashboard-events {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.dashboard-event-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  border: 1px solid rgba(10, 26, 58, 0.08);
+  border-radius: 0.75rem;
+  padding: 1rem 1.15rem;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 1px 2px rgba(10, 26, 58, 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dashboard-event-card:hover,
+.dashboard-event-card:focus {
+  border-color: rgba(139, 16, 16, 0.35);
+  box-shadow: 0 6px 16px rgba(10, 26, 58, 0.08);
+  color: inherit;
+}
+
+.dashboard-event-body h3 {
+  margin: 0 0 0.35rem;
+  color: var(--bea-navy);
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.dashboard-event-link {
+  color: var(--bea-red);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.dashboard-learn-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.dashboard-learn-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.05rem;
+  border: 1px solid rgba(10, 26, 58, 0.12);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--bea-navy);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.dashboard-learn-links a:hover,
+.dashboard-learn-links a:focus {
+  border-color: var(--bea-red);
+  color: var(--bea-red);
+}
+
 @media (max-width: 991.98px) {
   .dashboard-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -384,7 +555,8 @@ body {
 }
 
 @media (max-width: 575.98px) {
-  .dashboard-grid {
+  .dashboard-grid,
+  .dashboard-events {
     grid-template-columns: 1fr;
   }
 }
@@ -2196,6 +2368,173 @@ body {
   margin-top: 0.25rem;
   padding: 0.7rem 1.25rem;
   font-size: 1rem;
+}
+
+.membership-benefits-grid {
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 2.5rem;
+}
+
+.membership-plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.15rem;
+  margin-bottom: 1rem;
+}
+
+.membership-plan-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid rgba(10, 26, 58, 0.1);
+  border-radius: 0.85rem;
+  padding: 1.5rem 1.25rem 1.35rem;
+  box-shadow: 0 1px 2px rgba(10, 26, 58, 0.04);
+}
+
+.membership-plan-card-popular {
+  border: 2px solid var(--bea-red);
+  box-shadow: 0 6px 18px rgba(139, 16, 16, 0.1);
+}
+
+.membership-plan-badge {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  background: var(--bea-red);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.membership-plan-card h3 {
+  margin: 0 0 0.65rem;
+  color: var(--bea-navy);
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.3;
+  padding-right: 5.5rem;
+}
+
+.membership-plan-price {
+  margin: 0 0 0.45rem;
+  color: var(--bea-navy);
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.membership-plan-price span {
+  color: rgba(10, 26, 58, 0.6);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.membership-plan-for {
+  margin: 0 0 1.2rem;
+  flex: 1 1 auto;
+  color: rgba(10, 26, 58, 0.72);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+.membership-plan-btn {
+  width: 100%;
+  text-align: center;
+}
+
+.membership-plans-note {
+  margin: 0 0 2.35rem;
+  color: rgba(10, 26, 58, 0.62);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.membership-already {
+  margin-bottom: 0.5rem;
+}
+
+.membership-already p {
+  margin: 0;
+}
+
+.membership-login-link {
+  color: var(--bea-red);
+  font-size: 1.02rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.membership-login-link:hover,
+.membership-login-link:focus {
+  color: #6f0d0d;
+  text-decoration: underline;
+}
+
+@media (max-width: 991.98px) {
+  .membership-benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .membership-plans-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .membership-benefits-grid,
+  .membership-plans-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .membership-plan-card h3 {
+    padding-right: 0;
+  }
+
+  .membership-plan-card-popular .membership-plan-badge {
+    position: static;
+    display: inline-block;
+    margin-bottom: 0.65rem;
+  }
+}
+
+.nav-lock-icon {
+  margin-left: 0.2rem;
+  font-size: 0.75rem;
+  vertical-align: 0.05em;
+}
+
+.access-denied-page {
+  display: flex;
+  align-items: center;
+}
+
+.access-denied-panel {
+  max-width: 34rem;
+  margin: 1.5rem auto 0;
+  text-align: center;
+}
+
+.access-denied-icon {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--bea-red);
+  font-size: 2.75rem;
+}
+
+.access-denied-panel .abef-page-title {
+  margin-bottom: 0.75rem;
+}
+
+.access-denied-panel .abef-page-lead {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5rem;
 }
 
 .auth-links {

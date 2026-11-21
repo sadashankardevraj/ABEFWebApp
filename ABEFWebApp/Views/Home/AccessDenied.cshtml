@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<section class="abef-page access-denied-page">
+    <div class="container">
+        <div class="access-denied-panel">
+            <i class="bi bi-lock-fill access-denied-icon" aria-hidden="true"></i>
+            <h1 class="abef-page-title">You don't have access to this page</h1>
+            <p class="abef-page-lead">
+                Your account does not have permission to open this area. If you think this is a mistake, contact BEA support.
+            </p>
+            <a class="btn btn-member" asp-controller="Member" asp-action="Dashboard">Back to Dashboard</a>
+        </div>
+    </div>
+</section>

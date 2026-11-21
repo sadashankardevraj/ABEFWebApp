@@ -34,6 +34,12 @@ builder.Services
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+    options.AccessDeniedPath = "/Home/AccessDenied";
+});
+
 builder.Services.AddTransient<IEmailSender, FileEmailSender>();
 builder.Services.AddControllersWithViews();
 
