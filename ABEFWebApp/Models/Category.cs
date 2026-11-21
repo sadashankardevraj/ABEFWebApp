@@ -20,5 +20,11 @@ public class Category
     [MaxLength(300)]
     public string ShortDescription { get; set; } = string.Empty;
 
+    [MaxLength(500)]
+    public string? Purpose { get; set; }
+
+    [MaxLength(500)]
+    public string? Tips { get; set; }
+
     public ICollection<Item> Items { get; set; } = new List<Item>();
 }

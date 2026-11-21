@@ -1,0 +1,106 @@
+@model ABEFWebApp.Models.ViewModels.CategoryHubViewModel
+@{
+    ViewData["Title"] = Model.Name;
+
+    string BadgeClass(string type) => type.ToLowerInvariant() switch
+    {
+        "driver" => "abef-label-driver",
+        "enabler" => "abef-label-enabler",
+        "result" => "abef-label-result",
+        _ => "abef-label-driver"
+    };
+}
+
+<section class="abef-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Abef" asp-action="Index">ABEF</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Categories" asp-action="Index">7 Categories</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>@Model.Name</span>
+        </nav>
+
+        <div class="category-hub-header">
+            <span class="category-hub-label">Category @Model.Number</span>
+            <div class="category-hub-title-row">
+                <h1 class="abef-page-title category-hub-title">@Model.Name</h1>
+                <span class="abef-category-label category-hub-badge @BadgeClass(Model.Type)">@Model.Type</span>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(Model.Purpose))
+            {
+                <p class="abef-page-lead category-hub-purpose">@Model.Purpose</p>
+            }
+        </div>
+
+        <h2 class="abef-section-heading">Where this sits in the framework</h2>
+        <div class="category-framework-map" role="navigation" aria-label="Framework categories">
+            @foreach (var frameworkNumber in Model.FrameworkNumbers)
+            {
+                var isCurrent = frameworkNumber == Model.Number;
+                <a class="category-framework-box @(isCurrent ? "is-current" : null)"
+                   asp-controller="Categories"
+                   asp-action="Details"
+                   asp-route-number="@frameworkNumber"
+                   aria-current="@(isCurrent ? "page" : null)">@frameworkNumber</a>
+            }
+        </div>
+
+        <h2 class="abef-section-heading">Items in this category</h2>
+        <div class="category-items-grid">
+            @foreach (var item in Model.Items)
+            {
+                <article class="category-item-card">
+                    <span class="abef-category-number">@item.Code</span>
+                    <h3>@item.Name</h3>
+                    <p>@item.ShortDescription</p>
+                    <a class="btn btn-member category-item-btn" href="/Items/@item.Code">View item</a>
+                </article>
+            }
+        </div>
+
+        @if (Model.Tips.Count > 0)
+        {
+            <h2 class="abef-section-heading">Tips for success</h2>
+            <ul class="category-tips-list">
+                @foreach (var tip in Model.Tips)
+                {
+                    <li>
+                        <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                        <span>@tip</span>
+                    </li>
+                }
+            </ul>
+        }
+
+        <div class="category-hub-nav">
+            @if (Model.PreviousNumber.HasValue)
+            {
+                <a class="category-hub-nav-link"
+                   asp-controller="Categories"
+                   asp-action="Details"
+                   asp-route-number="@Model.PreviousNumber">
+                    ← Previous: @Model.PreviousName
+                </a>
+            }
+            else
+            {
+                <span></span>
+            }
+
+            @if (Model.NextNumber.HasValue)
+            {
+                <a class="category-hub-nav-link category-hub-nav-next"
+                   asp-controller="Categories"
+                   asp-action="Details"
+                   asp-route-number="@Model.NextNumber">
+                    Next: @Model.NextName →
+                </a>
+            }
+        </div>
+
+        <a class="abef-back-link" asp-controller="Categories" asp-action="Index">← Back to 7 Categories</a>
+    </div>
+</section>

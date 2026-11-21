@@ -1,0 +1,91 @@
+@model ABEFWebApp.Models.ViewModels.CategoriesIndexViewModel
+@{
+    ViewData["Title"] = "The 7 Categories";
+
+    string BadgeClass(string type) => type.ToLowerInvariant() switch
+    {
+        "driver" => "abef-label-driver",
+        "enabler" => "abef-label-enabler",
+        "result" => "abef-label-result",
+        _ => "abef-label-driver"
+    };
+}
+
+<section class="abef-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Abef" asp-action="Index">ABEF</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>7 Categories</span>
+        </nav>
+
+        <h1 class="abef-page-title">The 7 Categories</h1>
+        <p class="abef-page-lead">
+            Explore the seven categories that shape the framework. Drivers set direction, Enablers support how work gets done, and Results show what the organisation achieves.
+        </p>
+
+        @if (Model.Drivers.Count > 0)
+        {
+            <h2 class="abef-section-heading">Drivers</h2>
+            <div class="abef-category-grid categories-group-grid">
+                @foreach (var category in Model.Drivers)
+                {
+                    <article class="abef-category-card categories-index-card">
+                        <span class="abef-category-number">@category.Number</span>
+                        <span class="abef-category-label @BadgeClass(category.Type)">@category.Type</span>
+                        <h3>@category.Name</h3>
+                        <p>@category.ShortDescription</p>
+                        <a class="categories-explore-link"
+                           asp-controller="Categories"
+                           asp-action="Details"
+                           asp-route-number="@category.Number">Explore category</a>
+                    </article>
+                }
+            </div>
+        }
+
+        @if (Model.Enablers.Count > 0)
+        {
+            <h2 class="abef-section-heading">Enablers</h2>
+            <div class="abef-category-grid categories-group-grid">
+                @foreach (var category in Model.Enablers)
+                {
+                    <article class="abef-category-card categories-index-card">
+                        <span class="abef-category-number">@category.Number</span>
+                        <span class="abef-category-label @BadgeClass(category.Type)">@category.Type</span>
+                        <h3>@category.Name</h3>
+                        <p>@category.ShortDescription</p>
+                        <a class="categories-explore-link"
+                           asp-controller="Categories"
+                           asp-action="Details"
+                           asp-route-number="@category.Number">Explore category</a>
+                    </article>
+                }
+            </div>
+        }
+
+        @if (Model.Results.Count > 0)
+        {
+            <h2 class="abef-section-heading">Results</h2>
+            <div class="abef-category-grid categories-group-grid">
+                @foreach (var category in Model.Results)
+                {
+                    <article class="abef-category-card categories-index-card">
+                        <span class="abef-category-number">@category.Number</span>
+                        <span class="abef-category-label @BadgeClass(category.Type)">@category.Type</span>
+                        <h3>@category.Name</h3>
+                        <p>@category.ShortDescription</p>
+                        <a class="categories-explore-link"
+                           asp-controller="Categories"
+                           asp-action="Details"
+                           asp-route-number="@category.Number">Explore category</a>
+                    </article>
+                }
+            </div>
+        }
+
+        <a class="abef-back-link" asp-controller="Abef" asp-action="Index">← Back to ABEF</a>
+    </div>
+</section>

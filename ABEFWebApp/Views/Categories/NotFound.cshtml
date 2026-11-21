@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Category not found";
+}
+
+<section class="abef-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Abef" asp-action="Index">ABEF</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Categories" asp-action="Index">7 Categories</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>Not found</span>
+        </nav>
+
+        <h1 class="abef-page-title">Category not found</h1>
+        <p class="abef-page-lead">
+            We could not find that category. Choose one of the seven categories to continue exploring the framework.
+        </p>
+
+        <div class="abef-page-actions">
+            <a class="btn btn-member" asp-controller="Categories" asp-action="Index">View 7 Categories</a>
+        </div>
+
+        <a class="abef-back-link" asp-controller="Abef" asp-action="Index">← Back to ABEF</a>
+    </div>
+</section>

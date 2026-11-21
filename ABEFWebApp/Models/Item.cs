@@ -18,6 +18,24 @@ public class Item
     [MaxLength(300)]
     public string ShortDescription { get; set; } = string.Empty;
 
+    [MaxLength(500)]
+    public string? WhyItMatters { get; set; }
+
+    [MaxLength(500)]
+    public string? ApproachPoints { get; set; }
+
+    [MaxLength(500)]
+    public string? DeploymentPoints { get; set; }
+
+    [MaxLength(500)]
+    public string? ResultsPoints { get; set; }
+
+    [MaxLength(500)]
+    public string? ImprovementPoints { get; set; }
+
+    [MaxLength(300)]
+    public string? ReflectionQuestion { get; set; }
+
     public int CategoryId { get; set; }
 
     public Category? Category { get; set; }

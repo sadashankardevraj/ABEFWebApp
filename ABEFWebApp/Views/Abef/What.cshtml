@@ -30,12 +30,15 @@
         <div class="abef-category-grid">
             @foreach (var category in Model.Categories)
             {
-                <article class="abef-category-card">
+                <a class="abef-category-card abef-category-card-link"
+                   asp-controller="Categories"
+                   asp-action="Details"
+                   asp-route-number="@category.Number">
                     <span class="abef-category-number">@category.Number</span>
                     <span class="abef-category-label @BadgeClass(category.Type)">@category.Type</span>
                     <h3>@category.Name</h3>
                     <p>@category.ShortDescription</p>
-                </article>
+                </a>
             }
         </div>
 

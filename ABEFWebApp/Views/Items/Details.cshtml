@@ -1,0 +1,191 @@
+@model ABEFWebApp.Models.ViewModels.ItemDeepDiveViewModel
+@{
+    ViewData["Title"] = $"Item {Model.Code}";
+}
+
+<section class="abef-page item-deep-dive">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Abef" asp-action="Index">ABEF</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Categories" asp-action="Index">7 Categories</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Categories" asp-action="Details" asp-route-number="@Model.CategoryNumber">@Model.CategoryName</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>Item @Model.Code</span>
+        </nav>
+
+        <p class="item-page-eyebrow">Item Deep Dive</p>
+        <h1 class="abef-page-title item-page-title">Item @Model.Code — @Model.Name</h1>
+        <a class="item-category-link"
+           asp-controller="Categories"
+           asp-action="Details"
+           asp-route-number="@Model.CategoryNumber">
+            Category @Model.CategoryNumber: @Model.CategoryName
+        </a>
+
+        <div class="row g-4 item-deep-dive-row">
+            <div class="col-lg-8">
+                <article class="item-panel-card">
+                    <h2>Why this item matters</h2>
+                    <p>@(string.IsNullOrWhiteSpace(Model.WhyItMatters)
+                        ? "This item supports organisational excellence through clear practice and reflection."
+                        : Model.WhyItMatters)</p>
+                </article>
+
+                <ul class="nav nav-pills item-adri-tabs" id="adriTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="approach-tab" data-bs-toggle="tab"
+                                data-bs-target="#approach-pane" type="button" role="tab"
+                                aria-controls="approach-pane" aria-selected="true">Approach</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="deployment-tab" data-bs-toggle="tab"
+                                data-bs-target="#deployment-pane" type="button" role="tab"
+                                aria-controls="deployment-pane" aria-selected="false">Deployment</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="results-tab" data-bs-toggle="tab"
+                                data-bs-target="#results-pane" type="button" role="tab"
+                                aria-controls="results-pane" aria-selected="false">Results</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="improvement-tab" data-bs-toggle="tab"
+                                data-bs-target="#improvement-pane" type="button" role="tab"
+                                aria-controls="improvement-pane" aria-selected="false">Improvement</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="adriTabsContent">
+                    <div class="tab-pane fade show active" id="approach-pane" role="tabpanel" aria-labelledby="approach-tab" tabindex="0">
+                        <article class="item-panel-card">
+                            <h2>Key considerations</h2>
+                            <ul class="item-key-list">
+                                @foreach (var point in Model.ApproachPoints)
+                                {
+                                    <li>@point</li>
+                                }
+                            </ul>
+                        </article>
+                    </div>
+                    <div class="tab-pane fade" id="deployment-pane" role="tabpanel" aria-labelledby="deployment-tab" tabindex="0">
+                        <article class="item-panel-card">
+                            <h2>Key considerations</h2>
+                            <ul class="item-key-list">
+                                @foreach (var point in Model.DeploymentPoints)
+                                {
+                                    <li>@point</li>
+                                }
+                            </ul>
+                        </article>
+                    </div>
+                    <div class="tab-pane fade" id="results-pane" role="tabpanel" aria-labelledby="results-tab" tabindex="0">
+                        <article class="item-panel-card">
+                            <h2>Key considerations</h2>
+                            <ul class="item-key-list">
+                                @foreach (var point in Model.ResultsPoints)
+                                {
+                                    <li>@point</li>
+                                }
+                            </ul>
+                        </article>
+                    </div>
+                    <div class="tab-pane fade" id="improvement-pane" role="tabpanel" aria-labelledby="improvement-tab" tabindex="0">
+                        <article class="item-panel-card">
+                            <h2>Key considerations</h2>
+                            <ul class="item-key-list">
+                                @foreach (var point in Model.ImprovementPoints)
+                                {
+                                    <li>@point</li>
+                                }
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="item-sidebar">
+                    <button type="button"
+                            class="btn btn-member item-sidebar-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#reflectionModal">
+                        Reflection question
+                    </button>
+
+                    <a class="btn btn-member item-sidebar-btn"
+                       asp-controller="Categories"
+                       asp-action="Details"
+                       asp-route-number="@Model.CategoryNumber">
+                        Back to category
+                    </a>
+
+                    @if (Model.OtherItems.Count > 0)
+                    {
+                        <article class="item-panel-card item-other-card">
+                            <h2>Other items in this category</h2>
+                            <ul class="item-other-list">
+                                @foreach (var other in Model.OtherItems)
+                                {
+                                    <li>
+                                        <a asp-controller="Items" asp-action="Details" asp-route-code="@other.Code">
+                                            <span class="item-other-code">@other.Code</span>
+                                            <span>@other.Name</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </article>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="category-hub-nav item-nav">
+            @if (!string.IsNullOrWhiteSpace(Model.PreviousCode))
+            {
+                <a class="category-hub-nav-link"
+                   asp-controller="Items"
+                   asp-action="Details"
+                   asp-route-code="@Model.PreviousCode">
+                    ← Previous: @Model.PreviousCode — @Model.PreviousName
+                </a>
+            }
+            else
+            {
+                <span></span>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Model.NextCode))
+            {
+                <a class="category-hub-nav-link category-hub-nav-next"
+                   asp-controller="Items"
+                   asp-action="Details"
+                   asp-route-code="@Model.NextCode">
+                    Next: @Model.NextCode — @Model.NextName →
+                </a>
+            }
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="reflectionModal" tabindex="-1" aria-labelledby="reflectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content item-reflection-modal">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="reflectionModalLabel">Reflection question</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>@(string.IsNullOrWhiteSpace(Model.ReflectionQuestion)
+                    ? "What would stronger practice look like for this item in your organisation?"
+                    : Model.ReflectionQuestion)</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-member" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
