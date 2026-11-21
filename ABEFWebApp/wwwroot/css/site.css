@@ -753,6 +753,174 @@ body {
   background: #fff;
 }
 
+/* Events */
+.events-page {
+  padding: 2.5rem 0 3.5rem;
+}
+
+.events-title {
+  margin: 0 0 0.55rem;
+  color: var(--bea-navy);
+  font-size: clamp(1.85rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.events-intro {
+  margin: 0 0 1.5rem;
+  max-width: 40rem;
+  color: rgba(10, 26, 58, 0.75);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.events-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1.75rem;
+}
+
+.events-filter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 1.1rem;
+  border: 1px solid rgba(10, 26, 58, 0.18);
+  border-radius: 999px;
+  color: var(--bea-navy);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  background: #fff;
+}
+
+.events-filter:hover,
+.events-filter:focus {
+  border-color: var(--bea-red);
+  color: var(--bea-red);
+  text-decoration: none;
+}
+
+.events-filter.active {
+  background: var(--bea-red);
+  border-color: var(--bea-red);
+  color: #fff;
+}
+
+.events-empty {
+  margin: 2rem 0 0;
+  color: rgba(10, 26, 58, 0.7);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.event-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.25rem;
+  align-items: start;
+  background: #fff;
+  border: 1px solid rgba(10, 26, 58, 0.1);
+  border-radius: 0.85rem;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(10, 26, 58, 0.04);
+}
+
+.event-date-box {
+  width: 4.5rem;
+  background: #F5F6F8;
+  border: 1px solid rgba(10, 26, 58, 0.1);
+  border-radius: 0.65rem;
+  padding: 0.7rem 0.4rem;
+  text-align: center;
+}
+
+.event-date-day {
+  display: block;
+  color: var(--bea-navy);
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.event-date-month {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--bea-red);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.event-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.45rem;
+}
+
+.event-card-title {
+  margin: 0;
+  color: var(--bea-navy);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.event-type-badge {
+  display: inline-flex;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(139, 16, 16, 0.1);
+  color: var(--bea-red);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0 0.65rem;
+  color: rgba(10, 26, 58, 0.7);
+  font-size: 0.9rem;
+}
+
+.event-meta i {
+  color: var(--bea-red);
+}
+
+.event-meta-sep {
+  opacity: 0.55;
+}
+
+.event-description {
+  margin: 0 0 1rem;
+  color: rgba(10, 26, 58, 0.8);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.event-card-btn {
+  display: inline-flex;
+}
+
+@media (max-width: 575.98px) {
+  .event-card {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Contact Us */
 .contact-page {
   padding: 2.5rem 0 3.5rem;
@@ -1034,6 +1202,55 @@ body {
   margin-bottom: 2rem;
 }
 
+.abef-principles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.abef-principle-card {
+  background: #fff;
+  border: 1px solid rgba(10, 26, 58, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.2rem 1.1rem;
+  box-shadow: 0 1px 2px rgba(10, 26, 58, 0.04);
+}
+
+.abef-principle-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-bottom: 0.65rem;
+  border-radius: 0.4rem;
+  background: rgba(139, 16, 16, 0.1);
+  color: var(--bea-red);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.abef-principle-card h3 {
+  margin: 0 0 0.4rem;
+  color: var(--bea-navy);
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.abef-principle-card p {
+  margin: 0;
+  color: rgba(10, 26, 58, 0.72);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.abef-adri-row {
+  grid-template-columns: 1fr;
+  max-width: 28rem;
+}
+
 .abef-step-card {
   position: relative;
   padding-top: 1.5rem;
@@ -1072,7 +1289,8 @@ body {
 
 @media (max-width: 991.98px) {
   .abef-journey-grid,
-  .abef-category-grid {
+  .abef-category-grid,
+  .abef-principles-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1094,6 +1312,7 @@ body {
   .abef-feature-grid,
   .abef-steps-grid,
   .abef-category-grid,
+  .abef-principles-grid,
   .abef-mini-grid {
     grid-template-columns: 1fr;
   }

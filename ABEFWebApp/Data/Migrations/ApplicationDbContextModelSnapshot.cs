@@ -101,6 +101,98 @@ namespace ABEFWebApp.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("ABEFWebApp.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Number")
+                        .IsUnique();
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Leadership, Culture and Governance",
+                            Number = 1,
+                            ShortDescription = "Sets direction, culture and good governance.",
+                            Type = "Driver"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Customers and other Stakeholders",
+                            Number = 2,
+                            ShortDescription = "Understands and delivers value to customers and other stakeholders.",
+                            Type = "Driver"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Strategy and Planning",
+                            Number = 3,
+                            ShortDescription = "Turns direction into clear plans and goals.",
+                            Type = "Enabler"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "People",
+                            Number = 4,
+                            ShortDescription = "Develops, supports and engages the workforce.",
+                            Type = "Enabler"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Information and Knowledge",
+                            Number = 5,
+                            ShortDescription = "Uses data and knowledge to make better decisions.",
+                            Type = "Enabler"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Process Management, Improvement and Innovation",
+                            Number = 6,
+                            ShortDescription = "Designs, improves and innovates how work gets done.",
+                            Type = "Enabler"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Results and Sustainable Performance",
+                            Number = 7,
+                            ShortDescription = "Measures outcomes and long-term performance.",
+                            Type = "Result"
+                        });
+                });
+
             modelBuilder.Entity("ABEFWebApp.Models.ContactMessage", b =>
                 {
                     b.Property<int>("Id")
@@ -137,6 +229,395 @@ namespace ABEFWebApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContactMessages");
+                });
+
+            modelBuilder.Entity("ABEFWebApp.Models.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("RegisterUrl")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2026, 12, 4, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsPublished = true,
+                            Location = "Online",
+                            RegisterUrl = "#",
+                            ShortDescription = "Sample event: a short online introduction to the Australian Business Excellence Framework.",
+                            Title = "ABEF Introduction Webinar",
+                            Type = "Webinar"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2027, 1, 15, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            IsPublished = true,
+                            Location = "Sydney",
+                            RegisterUrl = "#",
+                            ShortDescription = "Sample event: a hands-on workshop on using ADRI for reflection and improvement.",
+                            Title = "ADRI Workshop",
+                            Type = "Workshop"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2027, 2, 12, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsPublished = true,
+                            Location = "Melbourne",
+                            RegisterUrl = "#",
+                            ShortDescription = "Sample event: learn how to run a practical organisational self-assessment.",
+                            Title = "Self-Assessment Masterclass",
+                            Type = "Workshop"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(2027, 3, 20, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsPublished = true,
+                            Location = "Brisbane",
+                            RegisterUrl = "#",
+                            ShortDescription = "Sample event: a full-day forum sharing practice, results and lessons from excellence work.",
+                            Title = "Business Excellence Forum",
+                            Type = "Conference"
+                        });
+                });
+
+            modelBuilder.Entity("ABEFWebApp.Models.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("Items");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Code = "1.1",
+                            Name = "Leadership and governance throughout the organisation",
+                            ShortDescription = "Leaders set clear expectations and govern the whole organisation well."
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            Code = "1.2",
+                            Name = "Leading the organisational culture",
+                            ShortDescription = "Leaders shape a culture that supports excellence every day."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 1,
+                            Code = "1.3",
+                            Name = "Purpose and Vision",
+                            ShortDescription = "The organisation is guided by a clear purpose and vision."
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 1,
+                            Code = "1.4",
+                            Name = "Society, community and environmental responsibility",
+                            ShortDescription = "The organisation acts responsibly toward society, community and the environment."
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 2,
+                            Code = "2.1",
+                            Name = "Knowledge of markets, customers and other stakeholders",
+                            ShortDescription = "The organisation understands its markets, customers and other stakeholders."
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 2,
+                            Code = "2.2",
+                            Name = "Effective management of customer and other stakeholder relationships",
+                            ShortDescription = "Relationships with customers and stakeholders are managed carefully and well."
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 2,
+                            Code = "2.3",
+                            Name = "Measuring customers and other stakeholders' perception of value",
+                            ShortDescription = "The organisation checks how customers and stakeholders judge the value they receive."
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 3,
+                            Code = "3.1",
+                            Name = "Understand the ecosystem and organisational capability",
+                            ShortDescription = "Leaders understand the wider environment and what the organisation can do."
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 3,
+                            Code = "3.2",
+                            Name = "Understand stakeholder requirements",
+                            ShortDescription = "Plans are shaped by what stakeholders need and expect."
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 3,
+                            Code = "3.3",
+                            Name = "The planning process",
+                            ShortDescription = "Planning turns direction into practical goals and actions."
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CategoryId = 4,
+                            Code = "4.1",
+                            Name = "Organisational capability through people",
+                            ShortDescription = "People capability is built to meet the organisation’s goals."
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CategoryId = 4,
+                            Code = "4.2",
+                            Name = "People effectiveness and development",
+                            ShortDescription = "People are supported to grow and perform effectively."
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CategoryId = 4,
+                            Code = "4.3",
+                            Name = "A great place to work",
+                            ShortDescription = "The workplace supports wellbeing, engagement and pride in work."
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CategoryId = 5,
+                            Code = "5.1",
+                            Name = "Identifying, generating, collecting and analysing the right data to inform decision-making",
+                            ShortDescription = "The right data is gathered and analysed to guide decisions."
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CategoryId = 5,
+                            Code = "5.2",
+                            Name = "Creating value through applying knowledge",
+                            ShortDescription = "Knowledge is used in ways that create real value."
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CategoryId = 5,
+                            Code = "5.3",
+                            Name = "Enable innovation and the use of technology",
+                            ShortDescription = "Technology and new ideas are used to improve how work is done."
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CategoryId = 6,
+                            Code = "6.1",
+                            Name = "Identification and management of organisational processes",
+                            ShortDescription = "Key processes are identified, owned and managed clearly."
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CategoryId = 6,
+                            Code = "6.2",
+                            Name = "Management of supplier and stakeholder processes",
+                            ShortDescription = "Processes with suppliers and stakeholders are managed effectively."
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CategoryId = 6,
+                            Code = "6.3",
+                            Name = "Process improvement and innovation",
+                            ShortDescription = "Processes are improved and innovated over time."
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CategoryId = 7,
+                            Code = "7.1",
+                            Name = "Measuring and communicating organisational results",
+                            ShortDescription = "Results are measured and shared so people know how the organisation is performing."
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CategoryId = 7,
+                            Code = "7.2",
+                            Name = "Achieving sustainable performance",
+                            ShortDescription = "Performance is sustained for the long term, not only short-term gains."
+                        });
+                });
+
+            modelBuilder.Entity("ABEFWebApp.Models.Principle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Number")
+                        .IsUnique();
+
+                    b.ToTable("Principles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Clear Direction and Organisational Alignment",
+                            Number = 1,
+                            ShortDescription = "Shared direction helps everyone pull toward the same goals."
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Ethical Governance",
+                            Number = 2,
+                            ShortDescription = "Honest, responsible governance builds trust and good decisions."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Customer and Stakeholder Value",
+                            Number = 3,
+                            ShortDescription = "Excellence starts with creating value for customers and stakeholders."
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "A Systems Perspective",
+                            Number = 4,
+                            ShortDescription = "The organisation works best when its parts are managed as one system."
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Valuing People",
+                            Number = 5,
+                            ShortDescription = "People’s skill, energy and involvement lift organisational performance."
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Organisational Learning",
+                            Number = 6,
+                            ShortDescription = "Learning and improvement keep the organisation adaptable."
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Management by Fact",
+                            Number = 7,
+                            ShortDescription = "Good decisions are based on reliable facts and evidence."
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Societal Contributions",
+                            Number = 8,
+                            ShortDescription = "Organisations create value for the wider community, not only themselves."
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Visionary Leadership",
+                            Number = 9,
+                            ShortDescription = "Leaders set the tone and inspire a future-focused culture."
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -276,6 +757,17 @@ namespace ABEFWebApp.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ABEFWebApp.Models.Item", b =>
+                {
+                    b.HasOne("ABEFWebApp.Models.Category", "Category")
+                        .WithMany("Items")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -325,6 +817,11 @@ namespace ABEFWebApp.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ABEFWebApp.Models.Category", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

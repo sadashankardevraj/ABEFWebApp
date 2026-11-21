@@ -1,0 +1,61 @@
+@model ABEFWebApp.Models.ViewModels.EventsIndexViewModel
+@{
+    ViewData["Title"] = "Events";
+    var filters = new[] { "All", "Webinar", "Workshop", "Conference" };
+}
+
+<section class="events-page">
+    <div class="container">
+        <h1 class="events-title">Events</h1>
+        <p class="events-intro">
+            Join BEA webinars, workshops and forums to learn, connect and strengthen your excellence practice.
+        </p>
+
+        <div class="events-filters" role="group" aria-label="Filter events by type">
+            @foreach (var filter in filters)
+            {
+                var isActive = string.Equals(Model.ActiveFilter, filter, StringComparison.OrdinalIgnoreCase);
+                <a class="events-filter @(isActive ? "active" : null)"
+                   asp-controller="Events"
+                   asp-action="Index"
+                   asp-route-type="@(filter == "All" ? null : filter)">@filter</a>
+            }
+        </div>
+
+        @if (Model.Events.Count == 0)
+        {
+            <p class="events-empty">No upcoming events</p>
+        }
+        else
+        {
+            <div class="events-list">
+                @foreach (var evt in Model.Events)
+                {
+                    <article class="event-card">
+                        <div class="event-date-box" aria-label="@evt.Date.ToString("dddd d MMMM yyyy")">
+                            <span class="event-date-day">@evt.Date.Day</span>
+                            <span class="event-date-month">@evt.Date.ToString("MMM").ToUpperInvariant()</span>
+                        </div>
+                        <div class="event-card-body">
+                            <div class="event-card-top">
+                                <h2 class="event-card-title">@evt.Title</h2>
+                                <span class="event-type-badge">@evt.Type</span>
+                            </div>
+                            <p class="event-meta">
+                                <i class="bi bi-geo-alt" aria-hidden="true"></i>
+                                @evt.Location
+                                <span class="event-meta-sep" aria-hidden="true">•</span>
+                                @evt.Date.ToString("h:mm tt")
+                            </p>
+                            <p class="event-description">@evt.ShortDescription</p>
+                            <a class="btn btn-member event-card-btn"
+                               href="@(string.IsNullOrWhiteSpace(evt.RegisterUrl) ? "#" : evt.RegisterUrl)">
+                                Find out more
+                            </a>
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+    </div>
+</section>

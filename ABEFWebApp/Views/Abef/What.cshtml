@@ -1,5 +1,14 @@
+@model ABEFWebApp.Models.ViewModels.AbefWhatViewModel
 @{
     ViewData["Title"] = "What is the ABEF?";
+
+    string BadgeClass(string type) => type.ToLowerInvariant() switch
+    {
+        "driver" => "abef-label-driver",
+        "enabler" => "abef-label-enabler",
+        "result" => "abef-label-result",
+        _ => "abef-label-driver"
+    };
 }
 
 <section class="abef-page">
@@ -19,55 +28,30 @@
 
         <h2 class="abef-section-heading">The 7 categories</h2>
         <div class="abef-category-grid">
-            <article class="abef-category-card">
-                <span class="abef-category-number">1</span>
-                <span class="abef-category-label abef-label-driver">Driver</span>
-                <h3>Leadership, Culture and Governance</h3>
-                <p>Sets direction, culture and good governance.</p>
-            </article>
-            <article class="abef-category-card">
-                <span class="abef-category-number">2</span>
-                <span class="abef-category-label abef-label-driver">Driver</span>
-                <h3>Customers and other Stakeholders</h3>
-                <p>Understands and delivers value to customers and other stakeholders.</p>
-            </article>
-            <article class="abef-category-card">
-                <span class="abef-category-number">3</span>
-                <span class="abef-category-label abef-label-enabler">Enabler</span>
-                <h3>Strategy and Planning</h3>
-                <p>Turns direction into clear plans and goals.</p>
-            </article>
-            <article class="abef-category-card">
-                <span class="abef-category-number">4</span>
-                <span class="abef-category-label abef-label-enabler">Enabler</span>
-                <h3>People</h3>
-                <p>Develops, supports and engages the workforce.</p>
-            </article>
-            <article class="abef-category-card">
-                <span class="abef-category-number">5</span>
-                <span class="abef-category-label abef-label-enabler">Enabler</span>
-                <h3>Information and Knowledge</h3>
-                <p>Uses data and knowledge to make better decisions.</p>
-            </article>
-            <article class="abef-category-card">
-                <span class="abef-category-number">6</span>
-                <span class="abef-category-label abef-label-enabler">Enabler</span>
-                <h3>Process Management, Improvement and Innovation</h3>
-                <p>Designs, improves and innovates how work gets done.</p>
-            </article>
-            <article class="abef-category-card">
-                <span class="abef-category-number">7</span>
-                <span class="abef-category-label abef-label-result">Result</span>
-                <h3>Results and Sustainable Performance</h3>
-                <p>Measures outcomes and long-term performance.</p>
-            </article>
+            @foreach (var category in Model.Categories)
+            {
+                <article class="abef-category-card">
+                    <span class="abef-category-number">@category.Number</span>
+                    <span class="abef-category-label @BadgeClass(category.Type)">@category.Type</span>
+                    <h3>@category.Name</h3>
+                    <p>@category.ShortDescription</p>
+                </article>
+            }
         </div>
 
-        <div class="abef-mini-grid">
-            <article class="abef-mini-card">
-                <h2>9 Principles</h2>
-                <p>Short guiding ideas that shape how excellence is understood and practised.</p>
-            </article>
+        <h2 class="abef-section-heading">The 9 Principles</h2>
+        <div class="abef-principles-grid">
+            @foreach (var principle in Model.Principles)
+            {
+                <article class="abef-principle-card">
+                    <span class="abef-principle-number">@principle.Number</span>
+                    <h3>@principle.Name</h3>
+                    <p>@principle.ShortDescription</p>
+                </article>
+            }
+        </div>
+
+        <div class="abef-mini-grid abef-adri-row">
             <article class="abef-mini-card">
                 <h2>ADRI</h2>
                 <p>Approach, Deployment, Results and Improvement — a simple way to reflect on each item.</p>

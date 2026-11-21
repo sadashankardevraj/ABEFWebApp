@@ -9,6 +9,7 @@
         && string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase);
     var isAbef = string.Equals(currentController, "Abef", StringComparison.OrdinalIgnoreCase);
     var isContact = string.Equals(currentController, "Contact", StringComparison.OrdinalIgnoreCase);
+    var isEvents = string.Equals(currentController, "Events", StringComparison.OrdinalIgnoreCase);
 
     string? firstName = null;
     if (SignInManager.IsSignedIn(User))
@@ -56,7 +57,8 @@
                                asp-area="" asp-controller="Abef" asp-action="Index">ABEF</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Events</a>
+                            <a class="nav-link @(isEvents ? "active" : null)"
+                               asp-area="" asp-controller="Events" asp-action="Index">Events</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Membership</a>
