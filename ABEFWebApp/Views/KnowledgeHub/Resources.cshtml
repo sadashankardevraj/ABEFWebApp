@@ -1,0 +1,147 @@
+@model ABEFWebApp.Models.ViewModels.KnowledgeHubResourcesViewModel
+@{
+    ViewData["Title"] = "Resources";
+
+    string TypeIcon(string type) => type.ToLowerInvariant() switch
+    {
+        "pdf" => "bi-file-earmark-pdf-fill",
+        "video" => "bi-camera-video-fill",
+        "link" => "bi-link-45deg",
+        "template" => "bi-file-earmark-ruled-fill",
+        _ => "bi-file-earmark-fill"
+    };
+}
+
+<section class="abef-page knowledge-hub-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="KnowledgeHub" asp-action="Index">Knowledge Hub</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>Resources</span>
+        </nav>
+
+        <h1 class="abef-page-title">Resources</h1>
+        <p class="abef-page-lead">Search and filter the Knowledge Hub library.</p>
+
+        <div class="kh-library-layout">
+            <aside class="kh-filter-panel" aria-label="Resource filters">
+                <h2 class="kh-filter-title">Filters</h2>
+                <form method="get" asp-controller="KnowledgeHub" asp-action="Resources">
+                    <div class="kh-filter-group">
+                        <label class="kh-filter-label" for="filterSection">Section</label>
+                        <select class="form-select kh-filter-control" id="filterSection" name="section">
+                            <option value="">All sections</option>
+                            @foreach (var option in Model.Sections)
+                            {
+                                if (Model.Section == option.Value)
+                                {
+                                    <option value="@option.Value" selected>@option.Label</option>
+                                }
+                                else
+                                {
+                                    <option value="@option.Value">@option.Label</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="kh-filter-group">
+                        <label class="kh-filter-label" for="filterCategory">Category</label>
+                        <select class="form-select kh-filter-control" id="filterCategory" name="category">
+                            <option value="">All categories</option>
+                            @foreach (var option in Model.Categories)
+                            {
+                                if (Model.CategoryId?.ToString() == option.Value)
+                                {
+                                    <option value="@option.Value" selected>@option.Label</option>
+                                }
+                                else
+                                {
+                                    <option value="@option.Value">@option.Label</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="kh-filter-group">
+                        <label class="kh-filter-label" for="filterType">Type</label>
+                        <select class="form-select kh-filter-control" id="filterType" name="type">
+                            <option value="">All types</option>
+                            @foreach (var option in Model.Types)
+                            {
+                                if (string.Equals(Model.Type, option, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <option value="@option" selected>@option</option>
+                                }
+                                else
+                                {
+                                    <option value="@option">@option</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="kh-filter-group">
+                        <label class="kh-filter-label" for="filterQuery">Search</label>
+                        <input class="form-control kh-filter-control"
+                               id="filterQuery"
+                               type="search"
+                               name="q"
+                               value="@Model.Query"
+                               placeholder="Search title or summary..." />
+                    </div>
+
+                    <button type="submit" class="btn btn-member kh-filter-submit">Apply filters</button>
+                    @if (Model.HasActiveFilters)
+                    {
+                        <a class="kh-clear-filters" asp-controller="KnowledgeHub" asp-action="Resources">Clear filters</a>
+                    }
+                </form>
+            </aside>
+
+            <div class="kh-results">
+                <p class="kh-results-count">Showing @Model.ResultCount @(Model.ResultCount == 1 ? "resource" : "resources")</p>
+
+                @if (Model.Resources.Count == 0)
+                {
+                    <p class="dashboard-empty">No resources match your filters.</p>
+                }
+                else
+                {
+                    <div class="kh-result-list">
+                        @foreach (var item in Model.Resources)
+                        {
+                            <article class="kh-result-card">
+                                <div class="kh-result-icon" aria-hidden="true">
+                                    <i class="bi @TypeIcon(item.ResourceType)"></i>
+                                </div>
+                                <div class="kh-result-body">
+                                    <div class="kh-result-badges">
+                                        <span class="kh-badge">@item.SectionTitle</span>
+                                        <span class="kh-badge kh-badge-type">@item.ResourceType</span>
+                                        @if (!string.IsNullOrWhiteSpace(item.CategoryName))
+                                        {
+                                            <span class="kh-badge kh-badge-muted">
+                                                @(item.CategoryNumber.HasValue ? $"{item.CategoryNumber}. " : null)@item.CategoryName
+                                            </span>
+                                        }
+                                    </div>
+                                    <h2>@item.Title</h2>
+                                    <p>@item.Summary</p>
+                                    <a class="btn btn-member kh-view-btn"
+                                       asp-controller="KnowledgeHub"
+                                       asp-action="Resource"
+                                       asp-route-id="@item.Id">View</a>
+                                </div>
+                            </article>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <a class="abef-back-link" asp-controller="KnowledgeHub" asp-action="Index">← Back to Knowledge Hub</a>
+    </div>
+</section>

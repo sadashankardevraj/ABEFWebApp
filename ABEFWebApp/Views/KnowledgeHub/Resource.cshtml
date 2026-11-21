@@ -1,0 +1,90 @@
+@model ABEFWebApp.Models.ViewModels.KnowledgeHubResourceDetailViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section class="abef-page knowledge-hub-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="KnowledgeHub" asp-action="Index">Knowledge Hub</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="KnowledgeHub"
+               asp-action="Resources"
+               asp-route-section="@Model.SectionKey">@Model.SectionTitle</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>@Model.Title</span>
+        </nav>
+
+        <div class="kh-detail-badges">
+            <span class="kh-badge">@Model.SectionTitle</span>
+            <span class="kh-badge kh-badge-type">@Model.ResourceType</span>
+        </div>
+
+        <h1 class="abef-page-title">@Model.Title</h1>
+        <p class="abef-page-lead">@Model.Summary</p>
+
+        @if (Model.CategoryNumber.HasValue && !string.IsNullOrWhiteSpace(Model.CategoryName))
+        {
+            <p class="kh-detail-category">
+                Related category:
+                <a asp-controller="Categories" asp-action="Details" asp-route-number="@Model.CategoryNumber">
+                    @($"{Model.CategoryNumber}. {Model.CategoryName}")
+                </a>
+            </p>
+        }
+
+        <div class="kh-detail-actions">
+            @if (Model.HasFile)
+            {
+                <a class="btn btn-member"
+                   asp-controller="KnowledgeHub"
+                   asp-action="Download"
+                   asp-route-id="@Model.Id">Download</a>
+            }
+
+            @if (Model.HasExternalUrl)
+            {
+                <a class="btn btn-member"
+                   href="@Model.ExternalUrl"
+                   target="_blank"
+                   rel="noopener noreferrer">Open link</a>
+            }
+
+            @if (!Model.HasFile && !Model.HasExternalUrl)
+            {
+                <p class="kh-unavailable-note">File not available yet</p>
+            }
+        </div>
+
+        @if (Model.MoreInSection.Count > 0)
+        {
+            <h2 class="abef-section-heading">More in this section</h2>
+            <div class="kh-recent-grid">
+                @foreach (var item in Model.MoreInSection)
+                {
+                    <a class="kh-recent-card"
+                       asp-controller="KnowledgeHub"
+                       asp-action="Resource"
+                       asp-route-id="@item.Id">
+                        <span class="kh-recent-meta">
+                            <span>@item.ResourceType</span>
+                            @if (!string.IsNullOrWhiteSpace(item.CategoryName))
+                            {
+                                <span>@item.CategoryName</span>
+                            }
+                        </span>
+                        <h3>@item.Title</h3>
+                        <p>@item.Summary</p>
+                    </a>
+                }
+            </div>
+        }
+
+        <a class="abef-back-link"
+           asp-controller="KnowledgeHub"
+           asp-action="Resources"
+           asp-route-section="@Model.SectionKey">← Back to section</a>
+    </div>
+</section>

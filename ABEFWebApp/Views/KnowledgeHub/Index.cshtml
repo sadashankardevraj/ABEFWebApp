@@ -1,13 +1,89 @@
+@model ABEFWebApp.Models.ViewModels.KnowledgeHubIndexViewModel
 @{
     ViewData["Title"] = "Knowledge Hub";
 }
 
-<section class="abef-page">
+<section class="abef-page knowledge-hub-page">
     <div class="container">
+        <p class="item-page-eyebrow">Members only</p>
         <h1 class="abef-page-title">Knowledge Hub</h1>
-        <p class="abef-page-lead">Coming in Week 8</p>
-        <div class="abef-page-actions">
-            <a class="btn btn-member" asp-controller="Member" asp-action="Dashboard">Back to Dashboard</a>
+        <p class="abef-page-lead">
+            Guides, tools and learning material to help you apply the ABEF.
+        </p>
+
+        <form class="kh-search" method="get" asp-controller="KnowledgeHub" asp-action="Resources" role="search">
+            <label class="visually-hidden" for="khSearch">Search resources</label>
+            <input id="khSearch"
+                   class="form-control kh-search-input"
+                   type="search"
+                   name="q"
+                   placeholder="Search resources..."
+                   autocomplete="off" />
+            <button type="submit" class="btn btn-member kh-search-btn">Search</button>
+        </form>
+
+        <h2 class="abef-section-heading">Select a resource category</h2>
+        <div class="kh-section-grid">
+            @foreach (var hubSection in Model.Sections)
+            {
+                <a class="kh-section-card"
+                   asp-controller="KnowledgeHub"
+                   asp-action="Resources"
+                   asp-route-section="@hubSection.Key">
+                    <span class="kh-section-icon" aria-hidden="true">
+                        <i class="bi @hubSection.IconClass"></i>
+                    </span>
+                    <h3>@hubSection.Title</h3>
+                    <p>@hubSection.Description</p>
+                    <span class="kh-section-count">
+                        @hubSection.ResourceCount @(hubSection.ResourceCount == 1 ? "resource" : "resources")
+                    </span>
+                </a>
+            }
         </div>
+
+        <div class="kh-extra-grid">
+            <a class="kh-extra-card" asp-controller="KnowledgeHub" asp-action="Glossary">
+                <i class="bi bi-book" aria-hidden="true"></i>
+                <div>
+                    <h3>Glossary of Terms</h3>
+                    <p>Quick definitions used across the framework.</p>
+                </div>
+            </a>
+            <a class="kh-extra-card" asp-controller="KnowledgeHub" asp-action="Faq">
+                <i class="bi bi-question-circle" aria-hidden="true"></i>
+                <div>
+                    <h3>FAQs</h3>
+                    <p>Common questions about using the Knowledge Hub.</p>
+                </div>
+            </a>
+        </div>
+
+        <h2 class="abef-section-heading">Recently added</h2>
+        @if (Model.RecentlyAdded.Count == 0)
+        {
+            <p class="dashboard-empty">No resources have been published yet.</p>
+        }
+        else
+        {
+            <div class="kh-recent-grid">
+                @foreach (var resource in Model.RecentlyAdded)
+                {
+                    <a class="kh-recent-card"
+                       asp-controller="KnowledgeHub"
+                       asp-action="Resource"
+                       asp-route-id="@resource.Id">
+                        <span class="kh-recent-meta">
+                            <span>@resource.SectionTitle</span>
+                            <span>@resource.ResourceType</span>
+                        </span>
+                        <h3>@resource.Title</h3>
+                        <p>@resource.Summary</p>
+                    </a>
+                }
+            </div>
+        }
+
+        <a class="abef-back-link" asp-controller="Member" asp-action="Dashboard">← Back to Dashboard</a>
     </div>
 </section>

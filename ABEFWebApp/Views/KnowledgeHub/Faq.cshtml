@@ -1,0 +1,59 @@
+@model ABEFWebApp.Models.ViewModels.KnowledgeHubFaqViewModel
+@{
+    ViewData["Title"] = "Frequently Asked Questions";
+}
+
+<section class="abef-page knowledge-hub-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="KnowledgeHub" asp-action="Index">Knowledge Hub</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>Frequently Asked Questions</span>
+        </nav>
+
+        <h1 class="abef-page-title">Frequently Asked Questions</h1>
+        <p class="abef-page-lead">
+            Quick answers about membership, the framework and using this site.
+        </p>
+
+        @if (Model.Items.Count == 0)
+        {
+            <p class="dashboard-empty">No FAQs have been published yet.</p>
+        }
+        else
+        {
+            <div class="accordion kh-faq-accordion" id="faqAccordion">
+                @for (var i = 0; i < Model.Items.Count; i++)
+                {
+                    var item = Model.Items[i];
+                    var headingId = $"faqHeading{item.Id}";
+                    var collapseId = $"faqCollapse{item.Id}";
+                    <div class="accordion-item kh-faq-item">
+                        <h2 class="accordion-header" id="@headingId">
+                            <button class="accordion-button @(i == 0 ? null : "collapsed")"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#@collapseId"
+                                    aria-expanded="@(i == 0 ? "true" : "false")"
+                                    aria-controls="@collapseId">
+                                @item.Question
+                            </button>
+                        </h2>
+                        <div id="@collapseId"
+                             class="accordion-collapse collapse @(i == 0 ? "show" : null)"
+                             aria-labelledby="@headingId"
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                @item.Answer
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        <a class="abef-back-link" asp-controller="KnowledgeHub" asp-action="Index">← Back to Knowledge Hub</a>
+    </div>
+</section>

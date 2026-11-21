@@ -13,6 +13,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Principle> Principles => Set<Principle>();
     public DbSet<CategoryPrinciple> CategoryPrinciples => Set<CategoryPrinciple>();
     public DbSet<Event> Events => Set<Event>();
+    public DbSet<Resource> Resources => Set<Resource>();
+    public DbSet<GlossaryTerm> GlossaryTerms => Set<GlossaryTerm>();
+    public DbSet<Faq> Faqs => Set<Faq>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -25,6 +28,25 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 .WithOne(i => i.Category!)
                 .HasForeignKey(i => i.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<Resource>(entity =>
+        {
+            entity.HasIndex(r => r.Section);
+            entity.HasOne(r => r.Category)
+                .WithMany()
+                .HasForeignKey(r => r.CategoryId)
+                .OnDelete(DeleteBehavior.SetNull);
+        });
+
+        builder.Entity<GlossaryTerm>(entity =>
+        {
+            entity.HasIndex(g => g.Term).IsUnique();
+        });
+
+        builder.Entity<Faq>(entity =>
+        {
+            entity.HasIndex(f => f.SortOrder);
         });
 
         builder.Entity<Item>(entity =>
@@ -586,6 +608,314 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 ShortDescription = "Sample event: a full-day forum sharing practice, results and lessons from excellence work.",
                 RegisterUrl = "#",
                 IsPublished = true
+            });
+
+        builder.Entity<Resource>().HasData(
+            new Resource
+            {
+                Id = 1,
+                Title = "ABEF 2026 Framework (member copy)",
+                Summary = "Provided by BEA to members. File to be added by Admin.",
+                Section = "YourCopyOfAbef",
+                ResourceType = "PDF",
+                CategoryId = null,
+                FileName = null,
+                ExternalUrl = null,
+                CreatedAt = new DateTime(2026, 11, 1, 0, 0, 0),
+                IsPublished = true
+            },
+            new Resource
+            {
+                Id = 2,
+                Title = "Sample: Getting started with ADRI",
+                Summary = "Sample content: a short guide to using Approach, Deployment, Results and Improvement on one item.",
+                Section = "HowToApply",
+                ResourceType = "PDF",
+                CategoryId = 1,
+                FileName = "sample-guide.pdf",
+                ExternalUrl = null,
+                CreatedAt = new DateTime(2026, 11, 2, 0, 0, 0),
+                IsPublished = true
+            },
+            new Resource
+            {
+                Id = 3,
+                Title = "Sample: Leadership category walkthrough",
+                Summary = "Sample content: practical tips for exploring Category 1 with your team.",
+                Section = "HowToApply",
+                ResourceType = "PDF",
+                CategoryId = 1,
+                FileName = "sample-guide.pdf",
+                ExternalUrl = null,
+                CreatedAt = new DateTime(2026, 11, 3, 0, 0, 0),
+                IsPublished = true
+            },
+            new Resource
+            {
+                Id = 4,
+                Title = "Sample: BPIR overview for members",
+                Summary = "Sample content: how benchmarking resources can support improvement planning.",
+                Section = "Bpir",
+                ResourceType = "Link",
+                CategoryId = 7,
+                FileName = null,
+                ExternalUrl = "https://example.com/sample-bpir",
+                CreatedAt = new DateTime(2026, 11, 4, 0, 0, 0),
+                IsPublished = true
+            },
+            new Resource
+            {
+                Id = 5,
+                Title = "Sample: Customer value webinar recording",
+                Summary = "Sample content: a short webinar on understanding customer and stakeholder value.",
+                Section = "Webinars",
+                ResourceType = "Video",
+                CategoryId = 2,
+                FileName = null,
+                ExternalUrl = "https://example.com/sample-webinar-customer-value",
+                CreatedAt = new DateTime(2026, 11, 5, 0, 0, 0),
+                IsPublished = true
+            },
+            new Resource
+            {
+                Id = 6,
+                Title = "Sample: Strategy and planning webinar",
+                Summary = "Sample content: turning direction into practical plans and goals.",
+                Section = "Webinars",
+                ResourceType = "Video",
+                CategoryId = 3,
+                FileName = null,
+                ExternalUrl = "https://example.com/sample-webinar-strategy",
+                CreatedAt = new DateTime(2026, 11, 6, 0, 0, 0),
+                IsPublished = true
+            },
+            new Resource
+            {
+                Id = 7,
+                Title = "Sample: People capability checklist",
+                Summary = "Sample content: a printable checklist for reviewing workforce capability.",
+                Section = "Documents",
+                ResourceType = "PDF",
+                CategoryId = 4,
+                FileName = "sample-guide.pdf",
+                ExternalUrl = null,
+                CreatedAt = new DateTime(2026, 11, 7, 0, 0, 0),
+                IsPublished = true
+            },
+            new Resource
+            {
+                Id = 8,
+                Title = "Sample: Education pack – ABEF basics",
+                Summary = "Sample content: teaching notes for introducing the framework to learners.",
+                Section = "Education",
+                ResourceType = "PDF",
+                CategoryId = null,
+                FileName = "sample-guide.pdf",
+                ExternalUrl = null,
+                CreatedAt = new DateTime(2026, 11, 8, 0, 0, 0),
+                IsPublished = true
+            },
+            new Resource
+            {
+                Id = 9,
+                Title = "Sample: Case study – process improvement",
+                Summary = "Sample content: how one organisation improved a key process using ADRI.",
+                Section = "CaseStudies",
+                ResourceType = "PDF",
+                CategoryId = 6,
+                FileName = "sample-case-study.pdf",
+                ExternalUrl = null,
+                CreatedAt = new DateTime(2026, 11, 9, 0, 0, 0),
+                IsPublished = true
+            },
+            new Resource
+            {
+                Id = 10,
+                Title = "Sample: Case study – information for decisions",
+                Summary = "Sample content: using better data and knowledge to guide decisions.",
+                Section = "CaseStudies",
+                ResourceType = "PDF",
+                CategoryId = 5,
+                FileName = "sample-case-study.pdf",
+                ExternalUrl = null,
+                CreatedAt = new DateTime(2026, 11, 10, 0, 0, 0),
+                IsPublished = true
+            },
+            new Resource
+            {
+                Id = 11,
+                Title = "Sample: Self-assessment planning template",
+                Summary = "Sample content: a simple template to plan a first organisational self-assessment.",
+                Section = "Tools",
+                ResourceType = "Template",
+                CategoryId = 7,
+                FileName = "sample-template.pdf",
+                ExternalUrl = null,
+                CreatedAt = new DateTime(2026, 11, 11, 0, 0, 0),
+                IsPublished = true
+            },
+            new Resource
+            {
+                Id = 12,
+                Title = "Sample: Results review worksheet",
+                Summary = "Sample content: a worksheet for reviewing results and sustainable performance.",
+                Section = "Tools",
+                ResourceType = "Template",
+                CategoryId = 7,
+                FileName = "sample-template.pdf",
+                ExternalUrl = null,
+                CreatedAt = new DateTime(2026, 11, 12, 0, 0, 0),
+                IsPublished = true
+            });
+
+        builder.Entity<GlossaryTerm>().HasData(
+            new GlossaryTerm
+            {
+                Id = 1,
+                Term = "ADRI",
+                Definition = "A simple cycle used to plan, put into action, check results and improve any part of the organisation."
+            },
+            new GlossaryTerm
+            {
+                Id = 2,
+                Term = "Approach",
+                Definition = "The thinking and planning behind how work will be done — the intended way of working."
+            },
+            new GlossaryTerm
+            {
+                Id = 3,
+                Term = "Deployment",
+                Definition = "Putting the planned approach into action across teams, sites and day-to-day work."
+            },
+            new GlossaryTerm
+            {
+                Id = 4,
+                Term = "Results",
+                Definition = "The evidence that shows whether the approach and deployment are delivering the intended outcomes."
+            },
+            new GlossaryTerm
+            {
+                Id = 5,
+                Term = "Improvement",
+                Definition = "Learning from results and adapting practice so performance gets better over time."
+            },
+            new GlossaryTerm
+            {
+                Id = 6,
+                Term = "Category",
+                Definition = "One of the seven main areas of the ABEF that groups related items for assessment and improvement."
+            },
+            new GlossaryTerm
+            {
+                Id = 7,
+                Term = "Item",
+                Definition = "A focused topic inside a category that organisations reflect on using ADRI."
+            },
+            new GlossaryTerm
+            {
+                Id = 8,
+                Term = "Driver",
+                Definition = "A category type that sets direction for the organisation, such as leadership or customers."
+            },
+            new GlossaryTerm
+            {
+                Id = 9,
+                Term = "Enabler",
+                Definition = "A category type that supports how work gets done, such as people, processes or knowledge."
+            },
+            new GlossaryTerm
+            {
+                Id = 10,
+                Term = "Principle",
+                Definition = "A guiding idea behind the framework that shapes excellent organisational practice."
+            },
+            new GlossaryTerm
+            {
+                Id = 11,
+                Term = "Business Excellence",
+                Definition = "A disciplined way of leading and improving so an organisation creates lasting value."
+            },
+            new GlossaryTerm
+            {
+                Id = 12,
+                Term = "Self-Assessment",
+                Definition = "A structured review of organisational practice against the framework to find strengths and gaps."
+            },
+            new GlossaryTerm
+            {
+                Id = 13,
+                Term = "Stakeholder",
+                Definition = "Anyone who has an interest in the organisation’s work, such as customers, staff, partners or the community."
+            },
+            new GlossaryTerm
+            {
+                Id = 14,
+                Term = "Benchmarking",
+                Definition = "Comparing practices and results with others to learn what good looks like and where to improve."
+            },
+            new GlossaryTerm
+            {
+                Id = 15,
+                Term = "Continuous Improvement",
+                Definition = "An ongoing habit of reviewing work, learning from evidence and making steady, practical changes."
+            });
+
+        builder.Entity<Faq>().HasData(
+            new Faq
+            {
+                Id = 1,
+                SortOrder = 1,
+                Question = "What is the ABEF?",
+                Answer = "The Australian Business Excellence Framework is a practical guide for leading, improving and sustaining organisational performance. It uses seven categories, principles and ADRI to help teams focus on what matters."
+            },
+            new Faq
+            {
+                Id = 2,
+                SortOrder = 2,
+                Question = "Who can become a member?",
+                Answer = "Individuals, students, educators and organisations can join BEA. Membership plans cover students, practitioners, foundations, businesses and larger corporations."
+            },
+            new Faq
+            {
+                Id = 3,
+                SortOrder = 3,
+                Question = "How do I start a self-assessment?",
+                Answer = "Log in as a member, open Assessment & Scoring from your dashboard, and begin with one category or item. Use ADRI to reflect on current practice before you capture evidence and scores."
+            },
+            new Faq
+            {
+                Id = 4,
+                SortOrder = 4,
+                Question = "What is ADRI?",
+                Answer = "ADRI stands for Approach, Deployment, Results and Improvement. It is a simple cycle for planning work, putting it into action, checking outcomes and learning what to change next."
+            },
+            new Faq
+            {
+                Id = 5,
+                SortOrder = 5,
+                Question = "How are results scored?",
+                Answer = "Scoring tools will help members judge practice and evidence against the framework. Full scoring features are being expanded in later releases of the Digital ABEF."
+            },
+            new Faq
+            {
+                Id = 6,
+                SortOrder = 6,
+                Question = "Can I download the ABEF?",
+                Answer = "Members can access framework materials in the Knowledge Hub under Your Copy of ABEF. Some files are added by BEA administrators as they become available."
+            },
+            new Faq
+            {
+                Id = 7,
+                SortOrder = 7,
+                Question = "How do I reset my password?",
+                Answer = "On the Member Login page, choose Forgot password and follow the email instructions. After you reset it, sign in again with your new password."
+            },
+            new Faq
+            {
+                Id = 8,
+                SortOrder = 8,
+                Question = "How do I contact BEA?",
+                Answer = "Use the Contact Us page on this site to send a message. You can also reach BEA through the contact details listed in membership and event communications."
             });
     }
 }

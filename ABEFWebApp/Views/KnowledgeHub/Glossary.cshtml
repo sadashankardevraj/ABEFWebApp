@@ -1,0 +1,101 @@
+@model ABEFWebApp.Models.ViewModels.KnowledgeHubGlossaryViewModel
+@{
+    ViewData["Title"] = "Glossary of Terms";
+}
+
+<section class="abef-page knowledge-hub-page" id="glossaryPage">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="KnowledgeHub" asp-action="Index">Knowledge Hub</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>Glossary of Terms</span>
+        </nav>
+
+        <h1 class="abef-page-title">Glossary of Terms</h1>
+        <p class="abef-page-lead">
+            Short definitions of key words used across the Digital ABEF.
+        </p>
+
+        <div class="kh-search glossary-search">
+            <label class="visually-hidden" for="glossarySearch">Search glossary</label>
+            <input id="glossarySearch"
+                   class="form-control kh-search-input"
+                   type="search"
+                   placeholder="Search terms..."
+                   autocomplete="off" />
+        </div>
+
+        <div class="glossary-az" role="navigation" aria-label="Glossary letters">
+            <button type="button" class="glossary-az-btn is-active" data-letter="all">All</button>
+            @foreach (var letter in Model.Letters)
+            {
+                <button type="button" class="glossary-az-btn" data-letter="@letter">@letter</button>
+            }
+        </div>
+
+        <div class="glossary-list" id="glossaryList">
+            @foreach (var item in Model.Terms)
+            {
+                <article class="glossary-card"
+                         data-term="@item.Term.ToLowerInvariant()"
+                         data-definition="@item.Definition.ToLowerInvariant()"
+                         data-letter="@item.Letter">
+                    <h2>@item.Term</h2>
+                    <p>@item.Definition</p>
+                    @if (!string.IsNullOrWhiteSpace(item.RelatedUrl))
+                    {
+                        <a class="glossary-related-link" href="@item.RelatedUrl">@item.RelatedLabel →</a>
+                    }
+                </article>
+            }
+        </div>
+
+        <p class="dashboard-empty glossary-empty d-none" id="glossaryEmpty">No terms match your search.</p>
+
+        <a class="abef-back-link" asp-controller="KnowledgeHub" asp-action="Index">← Back to Knowledge Hub</a>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        (() => {
+            const searchInput = document.getElementById('glossarySearch');
+            const cards = Array.from(document.querySelectorAll('.glossary-card'));
+            const empty = document.getElementById('glossaryEmpty');
+            const letterButtons = Array.from(document.querySelectorAll('.glossary-az-btn'));
+            let activeLetter = 'all';
+
+            function applyFilters() {
+                const query = (searchInput?.value || '').trim().toLowerCase();
+                let visibleCount = 0;
+
+                cards.forEach((card) => {
+                    const letter = card.getAttribute('data-letter') || '';
+                    const term = card.getAttribute('data-term') || '';
+                    const definition = card.getAttribute('data-definition') || '';
+                    const matchesLetter = activeLetter === 'all' || letter === activeLetter;
+                    const matchesQuery = !query || term.includes(query) || definition.includes(query);
+                    const show = matchesLetter && matchesQuery;
+                    card.classList.toggle('d-none', !show);
+                    if (show) visibleCount += 1;
+                });
+
+                if (empty) {
+                    empty.classList.toggle('d-none', visibleCount > 0);
+                }
+            }
+
+            letterButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    activeLetter = button.getAttribute('data-letter') || 'all';
+                    letterButtons.forEach((btn) => btn.classList.toggle('is-active', btn === button));
+                    applyFilters();
+                });
+            });
+
+            searchInput?.addEventListener('input', applyFilters);
+        })();
+    </script>
+}
