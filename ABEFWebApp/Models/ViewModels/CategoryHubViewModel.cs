@@ -8,6 +8,7 @@ public class CategoryHubViewModel
     public string? Purpose { get; init; }
     public IReadOnlyList<string> Tips { get; init; } = [];
     public IReadOnlyList<CategoryItemSummaryViewModel> Items { get; init; } = [];
+    public IReadOnlyList<CategoryRelatedPrincipleViewModel> RelatedPrinciples { get; init; } = [];
     public IReadOnlyList<int> FrameworkNumbers { get; init; } = [];
     public int? PreviousNumber { get; init; }
     public string? PreviousName { get; init; }
@@ -20,4 +21,10 @@ public class CategoryItemSummaryViewModel
     public string Code { get; init; } = string.Empty;
     public string Name { get; init; } = string.Empty;
     public string ShortDescription { get; init; } = string.Empty;
+}
+
+public class CategoryRelatedPrincipleViewModel
+{
+    public int Number { get; init; }
+    public string Name { get; init; } = string.Empty;
 }

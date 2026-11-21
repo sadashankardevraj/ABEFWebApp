@@ -1,0 +1,135 @@
+@{
+    ViewData["Title"] = "Learn ADRI";
+}
+
+<section class="abef-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Abef" asp-action="Index">ABEF</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>Learn ADRI</span>
+        </nav>
+
+        <p class="item-page-eyebrow">Learning cycle</p>
+        <h1 class="abef-page-title">Learn ADRI</h1>
+        <p class="abef-page-lead">
+            ADRI is a simple cycle to plan, do, check and improve any part of the organisation.
+            Use it to look at one item at a time and turn reflection into clearer next steps.
+        </p>
+
+        <h2 class="abef-section-heading">The ADRI cycle</h2>
+        <div class="adri-cycle">
+            <article class="adri-cycle-card">
+                <div class="adri-cycle-top">
+                    <span class="adri-cycle-letter">A</span>
+                    <i class="bi bi-lightbulb" aria-hidden="true"></i>
+                </div>
+                <h3>Approach</h3>
+                <p class="adri-cycle-tagline">Thinking and planning</p>
+                <ul>
+                    <li>What are we trying to achieve?</li>
+                    <li>How do we plan to do it?</li>
+                    <li>Who needs to be involved?</li>
+                </ul>
+            </article>
+
+            <span class="adri-cycle-arrow" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
+
+            <article class="adri-cycle-card">
+                <div class="adri-cycle-top">
+                    <span class="adri-cycle-letter">D</span>
+                    <i class="bi bi-diagram-3" aria-hidden="true"></i>
+                </div>
+                <h3>Deployment and Integration</h3>
+                <p class="adri-cycle-tagline">Putting the plan into action across the organisation</p>
+                <ul>
+                    <li>Is the plan used in daily work?</li>
+                    <li>Is it applied across teams and sites?</li>
+                    <li>Do people have what they need to follow it?</li>
+                </ul>
+            </article>
+
+            <span class="adri-cycle-arrow" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
+
+            <article class="adri-cycle-card">
+                <div class="adri-cycle-top">
+                    <span class="adri-cycle-letter">R</span>
+                    <i class="bi bi-bar-chart" aria-hidden="true"></i>
+                </div>
+                <h3>Results</h3>
+                <p class="adri-cycle-tagline">Monitoring and evaluating</p>
+                <ul>
+                    <li>What evidence shows it is working?</li>
+                    <li>What trends do we see over time?</li>
+                    <li>Where are the gaps or surprises?</li>
+                </ul>
+            </article>
+
+            <span class="adri-cycle-arrow" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
+
+            <article class="adri-cycle-card">
+                <div class="adri-cycle-top">
+                    <span class="adri-cycle-letter">I</span>
+                    <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
+                </div>
+                <h3>Improvement</h3>
+                <p class="adri-cycle-tagline">Learning and adapting</p>
+                <ul>
+                    <li>What did we learn from the results?</li>
+                    <li>What will we change next?</li>
+                    <li>How will we keep the improvement going?</li>
+                </ul>
+            </article>
+        </div>
+
+        <h2 class="abef-section-heading">ADRI in practice</h2>
+        <p class="adri-practice-intro">
+            Here is a short example: designing a clearer staff induction process.
+        </p>
+        <div class="adri-practice-steps">
+            <article class="adri-practice-step">
+                <span class="adri-cycle-letter">A</span>
+                <div>
+                    <h3>Approach</h3>
+                    <p>The team agrees what a good induction should cover, who owns it, and how long the first month should take.</p>
+                </div>
+            </article>
+            <article class="adri-practice-step">
+                <span class="adri-cycle-letter">D</span>
+                <div>
+                    <h3>Deployment</h3>
+                    <p>Managers use the same checklist for every new starter, and HR tracks that each step happens on time.</p>
+                </div>
+            </article>
+            <article class="adri-practice-step">
+                <span class="adri-cycle-letter">R</span>
+                <div>
+                    <h3>Results</h3>
+                    <p>After three months they review feedback scores, time to productivity, and how many steps were missed.</p>
+                </div>
+            </article>
+            <article class="adri-practice-step">
+                <span class="adri-cycle-letter">I</span>
+                <div>
+                    <h3>Improvement</h3>
+                    <p>They simplify two confusing steps and add a buddy check-in in week two, then run the cycle again.</p>
+                </div>
+            </article>
+        </div>
+
+        <h2 class="abef-section-heading">Try it on an item</h2>
+        <p class="abef-page-lead adri-try-lead">
+            Pick a category, open an item, and use the ADRI tabs to reflect on current practice.
+        </p>
+        <div class="abef-page-actions adri-try-actions">
+            <a class="btn btn-member" asp-controller="Categories" asp-action="Index">Explore the 7 Categories</a>
+            <a class="adri-example-link" asp-controller="Items" asp-action="Details" asp-route-code="1.1">
+                See an example: Item 1.1
+            </a>
+        </div>
+
+        <a class="abef-back-link" asp-controller="Abef" asp-action="Index">← Back to ABEF</a>
+    </div>
+</section>

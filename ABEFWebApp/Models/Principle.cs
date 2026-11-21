@@ -15,4 +15,18 @@ public class Principle
     [Required]
     [MaxLength(300)]
     public string ShortDescription { get; set; } = string.Empty;
+
+    [MaxLength(600)]
+    public string? Explanation { get; set; }
+
+    [MaxLength(500)]
+    public string? InPractice { get; set; }
+
+    [MaxLength(500)]
+    public string? StrengthSigns { get; set; }
+
+    [MaxLength(500)]
+    public string? WeaknessSigns { get; set; }
+
+    public ICollection<CategoryPrinciple> CategoryPrinciples { get; set; } = new List<CategoryPrinciple>();
 }

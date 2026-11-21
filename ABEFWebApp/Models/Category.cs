@@ -27,4 +27,6 @@ public class Category
     public string? Tips { get; set; }
 
     public ICollection<Item> Items { get; set; } = new List<Item>();
+
+    public ICollection<CategoryPrinciple> CategoryPrinciples { get; set; } = new List<CategoryPrinciple>();
 }

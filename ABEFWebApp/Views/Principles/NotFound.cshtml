@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Principle not found";
+}
+
+<section class="abef-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Abef" asp-action="Index">ABEF</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Principles" asp-action="Index">Principles</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>Not found</span>
+        </nav>
+
+        <h1 class="abef-page-title">Principle not found</h1>
+        <p class="abef-page-lead">
+            We could not find that principle. Browse the nine principles to continue exploring the framework.
+        </p>
+
+        <div class="abef-page-actions">
+            <a class="btn btn-member" asp-controller="Principles" asp-action="Index">View 9 Principles</a>
+        </div>
+
+        <a class="abef-back-link" asp-controller="Abef" asp-action="Index">← Back to ABEF</a>
+    </div>
+</section>

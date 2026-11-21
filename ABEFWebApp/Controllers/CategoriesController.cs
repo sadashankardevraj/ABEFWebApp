@@ -53,6 +53,8 @@ public class CategoriesController : Controller
         var category = await _db.Categories
             .AsNoTracking()
             .Include(c => c.Items)
+            .Include(c => c.CategoryPrinciples)
+                .ThenInclude(cp => cp.Principle)
             .FirstOrDefaultAsync(c => c.Number == number);
 
         if (category is null)
@@ -85,6 +87,15 @@ public class CategoriesController : Controller
                     Code = i.Code,
                     Name = i.Name,
                     ShortDescription = i.ShortDescription
+                })
+                .ToList(),
+            RelatedPrinciples = category.CategoryPrinciples
+                .Where(cp => cp.Principle is not null)
+                .OrderBy(cp => cp.Principle!.Number)
+                .Select(cp => new CategoryRelatedPrincipleViewModel
+                {
+                    Number = cp.Principle!.Number,
+                    Name = cp.Principle.Name
                 })
                 .ToList(),
             FrameworkNumbers = allCategories.Select(c => c.Number).ToList(),

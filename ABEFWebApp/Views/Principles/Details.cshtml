@@ -1,0 +1,116 @@
+@model ABEFWebApp.Models.ViewModels.PrincipleDetailViewModel
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<section class="abef-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Abef" asp-action="Index">ABEF</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Principles" asp-action="Index">Principles</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>@Model.Name</span>
+        </nav>
+
+        <p class="item-page-eyebrow">Principle @Model.Number</p>
+        <h1 class="abef-page-title">@Model.Name</h1>
+        @if (!string.IsNullOrWhiteSpace(Model.Explanation))
+        {
+            <p class="abef-page-lead">@Model.Explanation</p>
+        }
+
+        <article class="item-panel-card">
+            <h2>What this looks like in practice</h2>
+            <ul class="item-key-list">
+                @foreach (var point in Model.InPractice)
+                {
+                    <li>@point</li>
+                }
+            </ul>
+        </article>
+
+        <div class="row g-3 principle-signs-row">
+            <div class="col-md-6">
+                <article class="item-panel-card principle-sign-card">
+                    <h2>Signs of strength</h2>
+                    <ul class="principle-sign-list principle-sign-list-strength">
+                        @foreach (var sign in Model.StrengthSigns)
+                        {
+                            <li>
+                                <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                                <span>@sign</span>
+                            </li>
+                        }
+                    </ul>
+                </article>
+            </div>
+            <div class="col-md-6">
+                <article class="item-panel-card principle-sign-card">
+                    <h2>Signs of weakness</h2>
+                    <ul class="principle-sign-list principle-sign-list-weakness">
+                        @foreach (var sign in Model.WeaknessSigns)
+                        {
+                            <li>
+                                <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+                                <span>@sign</span>
+                            </li>
+                        }
+                    </ul>
+                </article>
+            </div>
+        </div>
+
+        <article class="item-panel-card">
+            <h2>Related categories</h2>
+            @if (Model.RelatedCategories.Count > 0)
+            {
+                <ul class="item-other-list">
+                    @foreach (var category in Model.RelatedCategories)
+                    {
+                        <li>
+                            <a asp-controller="Categories" asp-action="Details" asp-route-number="@category.Number">
+                                <span class="item-other-code">Category @category.Number</span>
+                                <span>@category.Name</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="principle-related-placeholder">No related categories are linked yet.</p>
+            }
+        </article>
+
+        <div class="category-hub-nav">
+            @if (Model.PreviousNumber.HasValue)
+            {
+                <a class="category-hub-nav-link"
+                   asp-controller="Principles"
+                   asp-action="Details"
+                   asp-route-number="@Model.PreviousNumber">
+                    ← Previous: @Model.PreviousName
+                </a>
+            }
+            else
+            {
+                <span></span>
+            }
+
+            @if (Model.NextNumber.HasValue)
+            {
+                <a class="category-hub-nav-link category-hub-nav-next"
+                   asp-controller="Principles"
+                   asp-action="Details"
+                   asp-route-number="@Model.NextNumber">
+                    Next: @Model.NextName →
+                </a>
+            }
+        </div>
+
+        <a class="abef-back-link" asp-controller="Principles" asp-action="Index">← Back to Principles</a>
+    </div>
+</section>

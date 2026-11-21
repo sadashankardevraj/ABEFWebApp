@@ -35,28 +35,31 @@
                         : Model.WhyItMatters)</p>
                 </article>
 
-                <ul class="nav nav-pills item-adri-tabs" id="adriTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="approach-tab" data-bs-toggle="tab"
-                                data-bs-target="#approach-pane" type="button" role="tab"
-                                aria-controls="approach-pane" aria-selected="true">Approach</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="deployment-tab" data-bs-toggle="tab"
-                                data-bs-target="#deployment-pane" type="button" role="tab"
-                                aria-controls="deployment-pane" aria-selected="false">Deployment</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="results-tab" data-bs-toggle="tab"
-                                data-bs-target="#results-pane" type="button" role="tab"
-                                aria-controls="results-pane" aria-selected="false">Results</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="improvement-tab" data-bs-toggle="tab"
-                                data-bs-target="#improvement-pane" type="button" role="tab"
-                                aria-controls="improvement-pane" aria-selected="false">Improvement</button>
-                    </li>
-                </ul>
+                <div class="item-adri-tabs-row">
+                    <ul class="nav nav-pills item-adri-tabs" id="adriTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="approach-tab" data-bs-toggle="tab"
+                                    data-bs-target="#approach-pane" type="button" role="tab"
+                                    aria-controls="approach-pane" aria-selected="true">Approach</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="deployment-tab" data-bs-toggle="tab"
+                                    data-bs-target="#deployment-pane" type="button" role="tab"
+                                    aria-controls="deployment-pane" aria-selected="false">Deployment</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="results-tab" data-bs-toggle="tab"
+                                    data-bs-target="#results-pane" type="button" role="tab"
+                                    aria-controls="results-pane" aria-selected="false">Results</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="improvement-tab" data-bs-toggle="tab"
+                                    data-bs-target="#improvement-pane" type="button" role="tab"
+                                    aria-controls="improvement-pane" aria-selected="false">Improvement</button>
+                        </li>
+                    </ul>
+                    <a class="item-adri-help-link" asp-controller="Abef" asp-action="Adri">What is ADRI?</a>
+                </div>
 
                 <div class="tab-content" id="adriTabsContent">
                     <div class="tab-pane fade show active" id="approach-pane" role="tabpanel" aria-labelledby="approach-tab" tabindex="0">

@@ -215,6 +215,118 @@ namespace ABEFWebApp.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ABEFWebApp.Models.CategoryPrinciple", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrincipleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoryId", "PrincipleId");
+
+                    b.HasIndex("PrincipleId");
+
+                    b.ToTable("CategoryPrinciples");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            PrincipleId = 1
+                        },
+                        new
+                        {
+                            CategoryId = 1,
+                            PrincipleId = 2
+                        },
+                        new
+                        {
+                            CategoryId = 1,
+                            PrincipleId = 8
+                        },
+                        new
+                        {
+                            CategoryId = 1,
+                            PrincipleId = 9
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            PrincipleId = 3
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            PrincipleId = 7
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            PrincipleId = 1
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            PrincipleId = 4
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            PrincipleId = 7
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            PrincipleId = 5
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            PrincipleId = 6
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            PrincipleId = 6
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            PrincipleId = 7
+                        },
+                        new
+                        {
+                            CategoryId = 6,
+                            PrincipleId = 4
+                        },
+                        new
+                        {
+                            CategoryId = 6,
+                            PrincipleId = 6
+                        },
+                        new
+                        {
+                            CategoryId = 6,
+                            PrincipleId = 7
+                        },
+                        new
+                        {
+                            CategoryId = 7,
+                            PrincipleId = 3
+                        },
+                        new
+                        {
+                            CategoryId = 7,
+                            PrincipleId = 7
+                        },
+                        new
+                        {
+                            CategoryId = 7,
+                            PrincipleId = 8
+                        });
+                });
+
             modelBuilder.Entity("ABEFWebApp.Models.ContactMessage", b =>
                 {
                     b.Property<int>("Id")
@@ -706,6 +818,14 @@ namespace ABEFWebApp.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Explanation")
+                        .HasMaxLength(600)
+                        .HasColumnType("nvarchar(600)");
+
+                    b.Property<string>("InPractice")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -719,6 +839,14 @@ namespace ABEFWebApp.Data.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
+                    b.Property<string>("StrengthSigns")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("WeaknessSigns")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Number")
@@ -730,65 +858,101 @@ namespace ABEFWebApp.Data.Migrations
                         new
                         {
                             Id = 1,
+                            Explanation = "People do their best work when they know where the organisation is headed and how their role fits in. Clear direction reduces mixed messages and helps teams make consistent choices day to day.",
+                            InPractice = "Leaders explain purpose and priorities in plain language.|Team goals clearly connect to organisation-wide aims.|People can describe how their work supports the direction.",
                             Name = "Clear Direction and Organisational Alignment",
                             Number = 1,
-                            ShortDescription = "Shared direction helps everyone pull toward the same goals."
+                            ShortDescription = "Shared direction helps everyone pull toward the same goals.",
+                            StrengthSigns = "Plans and conversations use the same priorities.|Cross-team handoffs feel coordinated.|New starters quickly understand what matters most.",
+                            WeaknessSigns = "Different units chase conflicting targets.|People are unsure what to prioritise.|Strategy language stays at the top and never reaches the front line."
                         },
                         new
                         {
                             Id = 2,
+                            Explanation = "Good governance keeps decisions fair, transparent and accountable. Ethical practice protects trust with staff, customers and the wider community.",
+                            InPractice = "Roles, authorities and escalation paths are clear.|Conflicts of interest are declared and managed.|Policies are applied evenly, not only when convenient.",
                             Name = "Ethical Governance",
                             Number = 2,
-                            ShortDescription = "Honest, responsible governance builds trust and good decisions."
+                            ShortDescription = "Honest, responsible governance builds trust and good decisions.",
+                            StrengthSigns = "People raise concerns without fear.|Decisions can be explained and traced.|Leaders model the standards they expect of others.",
+                            WeaknessSigns = "Rules bend for favoured people or projects.|Issues are hidden rather than discussed.|Accountability is unclear when something goes wrong."
                         },
                         new
                         {
                             Id = 3,
+                            Explanation = "Organisations succeed when they understand who they serve and what those people value. Focusing on value keeps improvement work connected to real needs, not internal habits alone.",
+                            InPractice = "Customer and stakeholder needs are reviewed regularly.|Services and products are shaped around what users value.|Feedback leads to visible changes.",
                             Name = "Customer and Stakeholder Value",
                             Number = 3,
-                            ShortDescription = "Excellence starts with creating value for customers and stakeholders."
+                            ShortDescription = "Excellence starts with creating value for customers and stakeholders.",
+                            StrengthSigns = "Teams talk about value from the user’s point of view.|Complaints and compliments both drive action.|Partners feel their needs are taken seriously.",
+                            WeaknessSigns = "Work is designed around internal convenience.|Feedback is collected but rarely used.|Key stakeholders are missing from planning conversations."
                         },
                         new
                         {
                             Id = 4,
+                            Explanation = "Results come from how people, processes and partners work together, not from isolated fixes. A systems view helps teams spot handoffs, delays and unintended effects before they grow.",
+                            InPractice = "End-to-end processes are mapped across team boundaries.|Leaders look at knock-on effects before changing one area.|Shared measures show how the whole system performs.",
                             Name = "A Systems Perspective",
                             Number = 4,
-                            ShortDescription = "The organisation works best when its parts are managed as one system."
+                            ShortDescription = "The organisation works best when its parts are managed as one system.",
+                            StrengthSigns = "Teams cooperate on shared outcomes.|Bottlenecks at handoffs are discussed openly.|Local improvements do not create problems elsewhere.",
+                            WeaknessSigns = "Each unit optimises itself and ignores the whole.|Problems bounce between teams with no owner.|Changes in one area surprise another."
                         },
                         new
                         {
                             Id = 5,
+                            Explanation = "Performance depends on people who feel respected, capable and involved. When people are valued, ideas surface earlier and effort stretches further.",
+                            InPractice = "People are involved in decisions that affect their work.|Development and recognition are part of normal management.|Workload and wellbeing are watched, not ignored.",
                             Name = "Valuing People",
                             Number = 5,
-                            ShortDescription = "People’s skill, energy and involvement lift organisational performance."
+                            ShortDescription = "People’s skill, energy and involvement lift organisational performance.",
+                            StrengthSigns = "Staff speak up with ideas and concerns.|People stay and grow in their roles.|Leaders listen as much as they direct.",
+                            WeaknessSigns = "Burnout and turnover are treated as normal.|Ideas only come from the top.|Recognition is rare or uneven."
                         },
                         new
                         {
                             Id = 6,
+                            Explanation = "Strong organisations treat every result as a chance to learn. Learning turns experience into better practice instead of repeating the same mistakes.",
+                            InPractice = "Teams pause to review what worked and what did not.|Lessons are shared beyond the original project.|Experiments are encouraged when the risk is managed.",
                             Name = "Organisational Learning",
                             Number = 6,
-                            ShortDescription = "Learning and improvement keep the organisation adaptable."
+                            ShortDescription = "Learning and improvement keep the organisation adaptable.",
+                            StrengthSigns = "People admit mistakes and extract learning.|Successful practices spread quickly.|Reviews lead to real changes in process or skill.",
+                            WeaknessSigns = "The same issues appear again and again.|Learning stays locked in one team.|Busy work crowds out reflection time."
                         },
                         new
                         {
                             Id = 7,
+                            Explanation = "Opinion alone is a weak guide when stakes are high. Using reliable facts helps leaders choose wisely and explain decisions with confidence.",
+                            InPractice = "Key decisions start with clear questions and relevant data.|Measures are understood and trusted by the people who use them.|Evidence is checked before big commitments are made.",
                             Name = "Management by Fact",
                             Number = 7,
-                            ShortDescription = "Good decisions are based on reliable facts and evidence."
+                            ShortDescription = "Good decisions are based on reliable facts and evidence.",
+                            StrengthSigns = "Leaders ask for evidence, not only stories.|Data quality issues are fixed promptly.|Trends are reviewed before reacting to one data point.",
+                            WeaknessSigns = "Reports are ignored or disputed without review.|Decisions swing with the loudest voice.|Measures change so often that trends are meaningless."
                         },
                         new
                         {
                             Id = 8,
+                            Explanation = "Organisations sit inside a wider community and environment. Contributing beyond immediate self-interest builds trust and supports long-term sustainability.",
+                            InPractice = "Community and environmental impacts are considered in planning.|Local partnerships support shared goals.|People are encouraged to contribute beyond their day job where it fits.",
                             Name = "Societal Contributions",
                             Number = 8,
-                            ShortDescription = "Organisations create value for the wider community, not only themselves."
+                            ShortDescription = "Organisations create value for the wider community, not only themselves.",
+                            StrengthSigns = "External impact is discussed alongside financial results.|Partners see the organisation as a good neighbour.|Commitments to the community are kept over time.",
+                            WeaknessSigns = "Wider impacts are treated as optional extras.|Short-term gain overrides community harm.|Promises to partners are forgotten once pressure rises."
                         },
                         new
                         {
                             Id = 9,
+                            Explanation = "Leaders shape what people believe is possible. Visionary leadership looks ahead, builds confidence and keeps improvement moving when conditions change.",
+                            InPractice = "Leaders describe a clear future people can believe in.|They model the behaviours they want others to follow.|They keep focus on long-term capability as well as short-term delivery.",
                             Name = "Visionary Leadership",
                             Number = 9,
-                            ShortDescription = "Leaders set the tone and inspire a future-focused culture."
+                            ShortDescription = "Leaders set the tone and inspire a future-focused culture.",
+                            StrengthSigns = "People feel motivated by the future direction.|Leaders stay visible during change and challenge.|Ambition is matched with practical next steps.",
+                            WeaknessSigns = "Vision statements feel empty or unused.|Leaders only react to urgent issues.|People wait for permission instead of taking initiative."
                         });
                 });
 
@@ -929,6 +1093,25 @@ namespace ABEFWebApp.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ABEFWebApp.Models.CategoryPrinciple", b =>
+                {
+                    b.HasOne("ABEFWebApp.Models.Category", "Category")
+                        .WithMany("CategoryPrinciples")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ABEFWebApp.Models.Principle", "Principle")
+                        .WithMany("CategoryPrinciples")
+                        .HasForeignKey("PrincipleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Principle");
+                });
+
             modelBuilder.Entity("ABEFWebApp.Models.Item", b =>
                 {
                     b.HasOne("ABEFWebApp.Models.Category", "Category")
@@ -993,7 +1176,14 @@ namespace ABEFWebApp.Data.Migrations
 
             modelBuilder.Entity("ABEFWebApp.Models.Category", b =>
                 {
+                    b.Navigation("CategoryPrinciples");
+
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("ABEFWebApp.Models.Principle", b =>
+                {
+                    b.Navigation("CategoryPrinciples");
                 });
 #pragma warning restore 612, 618
         }

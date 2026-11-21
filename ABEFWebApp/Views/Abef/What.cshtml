@@ -46,19 +46,22 @@
         <div class="abef-principles-grid">
             @foreach (var principle in Model.Principles)
             {
-                <article class="abef-principle-card">
+                <a class="abef-principle-card abef-principle-card-link"
+                   asp-controller="Principles"
+                   asp-action="Details"
+                   asp-route-number="@principle.Number">
                     <span class="abef-principle-number">@principle.Number</span>
                     <h3>@principle.Name</h3>
                     <p>@principle.ShortDescription</p>
-                </article>
+                </a>
             }
         </div>
 
         <div class="abef-mini-grid abef-adri-row">
-            <article class="abef-mini-card">
+            <a class="abef-mini-card abef-mini-card-link" asp-controller="Abef" asp-action="Adri">
                 <h2>ADRI</h2>
                 <p>Approach, Deployment, Results and Improvement — a simple way to reflect on each item.</p>
-            </article>
+            </a>
         </div>
 
         <a class="abef-back-link" asp-controller="Abef" asp-action="Index">← Back to ABEF</a>

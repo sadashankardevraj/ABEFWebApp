@@ -75,6 +75,23 @@
             </ul>
         }
 
+        @if (Model.RelatedPrinciples.Count > 0)
+        {
+            <h2 class="abef-section-heading">Related principles</h2>
+            <div class="related-principles-grid">
+                @foreach (var principle in Model.RelatedPrinciples)
+                {
+                    <a class="related-principle-card"
+                       asp-controller="Principles"
+                       asp-action="Details"
+                       asp-route-number="@principle.Number">
+                        <span class="abef-principle-number">@principle.Number</span>
+                        <h3>@principle.Name</h3>
+                    </a>
+                }
+            </div>
+        }
+
         <div class="category-hub-nav">
             @if (Model.PreviousNumber.HasValue)
             {

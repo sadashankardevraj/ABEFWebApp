@@ -45,4 +45,9 @@ public class AbefController : Controller
     {
         return View();
     }
+
+    public IActionResult Adri()
+    {
+        return View();
+    }
 }

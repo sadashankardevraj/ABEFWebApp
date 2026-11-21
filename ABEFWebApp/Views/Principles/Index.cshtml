@@ -1,0 +1,38 @@
+@model ABEFWebApp.Models.ViewModels.PrinciplesIndexViewModel
+@{
+    ViewData["Title"] = "The 9 Principles of Business Excellence";
+}
+
+<section class="abef-page">
+    <div class="container">
+        <nav class="account-breadcrumb" aria-label="Breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <a asp-controller="Abef" asp-action="Index">ABEF</a>
+            <span class="account-breadcrumb-sep" aria-hidden="true">›</span>
+            <span>Principles</span>
+        </nav>
+
+        <h1 class="abef-page-title">The 9 Principles of Business Excellence</h1>
+        <p class="abef-page-lead">
+            These principles are the guiding ideas behind the framework. Use them as a lens when you explore categories, reflect with ADRI and decide what to improve next.
+        </p>
+
+        <div class="abef-principles-grid principles-index-grid">
+            @foreach (var principle in Model.Principles)
+            {
+                <article class="abef-principle-card principles-index-card">
+                    <span class="abef-principle-number">@principle.Number</span>
+                    <h3>@principle.Name</h3>
+                    <p>@principle.ShortDescription</p>
+                    <a class="categories-explore-link"
+                       asp-controller="Principles"
+                       asp-action="Details"
+                       asp-route-number="@principle.Number">Read more</a>
+                </article>
+            }
+        </div>
+
+        <a class="abef-back-link" asp-controller="Abef" asp-action="Index">← Back to ABEF</a>
+    </div>
+</section>

@@ -1231,6 +1231,23 @@ body {
   box-shadow: 0 1px 2px rgba(10, 26, 58, 0.04);
 }
 
+.abef-principle-card-link,
+.abef-mini-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.abef-principle-card-link:hover,
+.abef-principle-card-link:focus,
+.abef-mini-card-link:hover,
+.abef-mini-card-link:focus {
+  border-color: rgba(139, 16, 16, 0.35);
+  box-shadow: 0 4px 14px rgba(10, 26, 58, 0.08);
+  color: inherit;
+}
+
 .abef-principle-number {
   display: inline-flex;
   align-items: center;
@@ -1263,6 +1280,241 @@ body {
 .abef-adri-row {
   grid-template-columns: 1fr;
   max-width: 28rem;
+}
+
+.adri-cycle {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  gap: 0.65rem;
+  align-items: stretch;
+  margin-bottom: 2.5rem;
+}
+
+.adri-cycle-card {
+  background: #fff;
+  border: 1px solid rgba(10, 26, 58, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.2rem 1.05rem;
+  box-shadow: 0 1px 2px rgba(10, 26, 58, 0.04);
+}
+
+.adri-cycle-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.adri-cycle-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.4rem;
+  background: rgba(139, 16, 16, 0.1);
+  color: var(--bea-red);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.adri-cycle-top i {
+  color: var(--bea-red);
+  font-size: 1.25rem;
+}
+
+.adri-cycle-card h3 {
+  margin: 0 0 0.3rem;
+  color: var(--bea-navy);
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.adri-cycle-tagline {
+  margin: 0 0 0.85rem;
+  color: rgba(10, 26, 58, 0.68);
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.adri-cycle-card ul {
+  margin: 0;
+  padding-left: 1.05rem;
+  color: rgba(10, 26, 58, 0.78);
+}
+
+.adri-cycle-card li {
+  margin-bottom: 0.4rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.adri-cycle-card li:last-child {
+  margin-bottom: 0;
+}
+
+.adri-cycle-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bea-red);
+  font-size: 1.15rem;
+}
+
+.adri-practice-intro {
+  margin: -0.35rem 0 1.15rem;
+  color: rgba(10, 26, 58, 0.78);
+  font-size: 0.98rem;
+}
+
+.adri-practice-steps {
+  display: grid;
+  gap: 0.85rem;
+  margin-bottom: 2.35rem;
+}
+
+.adri-practice-step {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid rgba(10, 26, 58, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.1rem 1.15rem;
+  box-shadow: 0 1px 2px rgba(10, 26, 58, 0.04);
+}
+
+.adri-practice-step h3 {
+  margin: 0 0 0.3rem;
+  color: var(--bea-navy);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.adri-practice-step p {
+  margin: 0;
+  color: rgba(10, 26, 58, 0.75);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.adri-try-lead {
+  margin-bottom: 1.1rem;
+}
+
+.adri-try-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem 1.25rem;
+}
+
+.adri-example-link {
+  color: var(--bea-red);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.adri-example-link:hover,
+.adri-example-link:focus {
+  color: #6f0d0d;
+  text-decoration: underline;
+}
+
+.principles-index-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 11rem;
+}
+
+.principles-index-card p {
+  flex: 1 1 auto;
+  margin-bottom: 0.85rem;
+}
+
+.principles-index-grid {
+  margin-bottom: 2rem;
+}
+
+.principle-signs-row {
+  margin-bottom: 0.25rem;
+}
+
+.principle-sign-card {
+  height: 100%;
+}
+
+.principle-sign-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.principle-sign-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+  color: rgba(10, 26, 58, 0.8);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+.principle-sign-list li:last-child {
+  margin-bottom: 0;
+}
+
+.principle-sign-list-strength i {
+  margin-top: 0.15rem;
+  color: #198754;
+  font-size: 1.05rem;
+}
+
+.principle-sign-list-weakness i {
+  margin-top: 0.15rem;
+  color: var(--bea-red);
+  font-size: 1.05rem;
+}
+
+.principle-related-placeholder {
+  margin: 0;
+  color: rgba(10, 26, 58, 0.62);
+  font-size: 0.94rem;
+}
+
+.related-principles-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.85rem;
+  margin-bottom: 2.25rem;
+}
+
+.related-principle-card {
+  display: block;
+  background: #fff;
+  border: 1px solid rgba(10, 26, 58, 0.1);
+  border-radius: 0.75rem;
+  padding: 1rem 1.05rem;
+  box-shadow: 0 1px 2px rgba(10, 26, 58, 0.04);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.related-principle-card:hover,
+.related-principle-card:focus {
+  border-color: rgba(139, 16, 16, 0.35);
+  box-shadow: 0 4px 14px rgba(10, 26, 58, 0.08);
+  color: inherit;
+}
+
+.related-principle-card h3 {
+  margin: 0;
+  color: var(--bea-navy);
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.35;
 }
 
 .abef-step-card {
@@ -1551,11 +1803,33 @@ body {
   line-height: 1.6;
 }
 
+.item-adri-tabs-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.15rem;
+  margin-bottom: 1rem;
+}
+
 .item-adri-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
+}
+
+.item-adri-help-link {
+  color: var(--bea-red);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.item-adri-help-link:hover,
+.item-adri-help-link:focus {
+  color: #6f0d0d;
+  text-decoration: underline;
 }
 
 .item-adri-tabs .nav-link {
@@ -1666,13 +1940,22 @@ body {
 @media (max-width: 991.98px) {
   .abef-journey-grid,
   .abef-category-grid,
-  .abef-principles-grid {
+  .abef-principles-grid,
+  .related-principles-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
   .abef-feature-grid,
   .abef-steps-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .adri-cycle {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .adri-cycle-arrow {
+    display: none;
   }
 }
 
@@ -1690,7 +1973,9 @@ body {
   .abef-category-grid,
   .abef-principles-grid,
   .abef-mini-grid,
-  .category-items-grid {
+  .category-items-grid,
+  .adri-cycle,
+  .related-principles-grid {
     grid-template-columns: 1fr;
   }
 }
