@@ -379,6 +379,62 @@ body {
   text-decoration: underline;
 }
 
+.dashboard-latest-result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.35rem;
+  padding: 1.2rem 1.35rem;
+  background: #fff;
+  border: 1px solid rgba(10, 26, 58, 0.1);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(10, 26, 58, 0.04);
+}
+
+.dashboard-latest-result-main h2 {
+  margin: 0 0 0.55rem;
+  color: var(--bea-navy);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.dashboard-latest-result-score {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 0.85rem;
+}
+
+.dashboard-latest-result-pct {
+  color: var(--bea-navy);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.dashboard-latest-result-date {
+  margin: 0.55rem 0 0;
+  color: rgba(10, 26, 58, 0.65);
+  font-size: 0.9rem;
+}
+
+.dashboard-latest-result-link {
+  color: var(--bea-red);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.dashboard-latest-result-link:hover,
+.dashboard-latest-result-link:focus {
+  color: #6f0d0d;
+  text-decoration: underline;
+}
+
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -3527,6 +3583,380 @@ body {
   font-size: 0.88rem;
 }
 
+.assessment-my-score {
+  color: var(--bea-navy);
+  font-weight: 700;
+}
+
+.assessment-my-score.is-empty {
+  color: rgba(10, 26, 58, 0.4);
+  font-weight: 500;
+}
+
+.assessment-results-header {
+  margin-bottom: 1.25rem;
+}
+
+.assessment-results-submitted {
+  margin: 0.25rem 0 0;
+  color: rgba(10, 26, 58, 0.65);
+  font-size: 0.95rem;
+}
+
+.assessment-results-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+  padding: 1.4rem 1.5rem;
+  background: #fff;
+  border: 1px solid rgba(10, 26, 58, 0.1);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(10, 26, 58, 0.04);
+}
+
+.assessment-results-summary-score {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem 1rem;
+}
+
+.assessment-results-pct {
+  color: var(--bea-navy);
+  font-size: clamp(2.4rem, 5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.assessment-results-level-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(139, 16, 16, 0.1);
+  color: var(--bea-red);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.assessment-results-summary-text {
+  margin: 0;
+  color: var(--bea-navy);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.assessment-results-avg-note {
+  margin: 0;
+  color: rgba(10, 26, 58, 0.65);
+  font-size: 0.92rem;
+}
+
+.assessment-results-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.assessment-results-chart-card,
+.assessment-results-table-card {
+  background: #fff;
+  border: 1px solid rgba(10, 26, 58, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.2rem 1.25rem 1.35rem;
+  box-shadow: 0 1px 2px rgba(10, 26, 58, 0.04);
+}
+
+.assessment-results-chart-card h2,
+.assessment-results-table-card h2,
+.assessment-results-insight h2 {
+  margin: 0 0 1rem;
+  color: var(--bea-navy);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.assessment-results-chart-wrap {
+  position: relative;
+  height: 260px;
+}
+
+.assessment-results-radar-wrap {
+  height: 280px;
+}
+
+.assessment-results-table-card {
+  margin-bottom: 1.5rem;
+}
+
+.assessment-results-table-wrap {
+  overflow-x: auto;
+}
+
+.assessment-results-table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+}
+
+.assessment-results-table th,
+.assessment-results-table td {
+  padding: 0.85rem 0.75rem;
+  border-bottom: 1px solid rgba(10, 26, 58, 0.08);
+  text-align: left;
+  vertical-align: middle;
+  font-size: 0.92rem;
+}
+
+.assessment-results-table th {
+  color: rgba(10, 26, 58, 0.7);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.assessment-results-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.assessment-results-cat-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  margin-right: 0.35rem;
+  color: var(--bea-red);
+  font-weight: 800;
+}
+
+.assessment-type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  background: #EEF0F3;
+  color: rgba(10, 26, 58, 0.75);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.assessment-type-badge.type-driver {
+  background: rgba(139, 16, 16, 0.1);
+  color: var(--bea-red);
+}
+
+.assessment-type-badge.type-enabler {
+  background: rgba(10, 26, 58, 0.08);
+  color: var(--bea-navy);
+}
+
+.assessment-type-badge.type-result {
+  background: rgba(25, 135, 84, 0.12);
+  color: #0f5132;
+}
+
+.assessment-results-pct-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 9rem;
+}
+
+.assessment-results-bar {
+  flex: 1 1 auto;
+  height: 0.45rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(10, 26, 58, 0.08);
+}
+
+.assessment-results-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--bea-red);
+}
+
+.assessment-results-insight-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.assessment-results-insight {
+  padding: 1.2rem 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+}
+
+.assessment-results-insight.is-strength {
+  background: rgba(25, 135, 84, 0.08);
+  border-color: rgba(25, 135, 84, 0.22);
+}
+
+.assessment-results-insight.is-improve {
+  background: rgba(180, 120, 20, 0.1);
+  border-color: rgba(180, 120, 20, 0.28);
+}
+
+.assessment-results-insight.is-strength h2 {
+  color: #0f5132;
+}
+
+.assessment-results-insight.is-improve h2 {
+  color: #8a5a00;
+}
+
+.assessment-results-insight ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.assessment-results-insight li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-bottom: 0.85rem;
+  color: rgba(10, 26, 58, 0.78);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.assessment-results-insight li:last-child {
+  margin-bottom: 0;
+}
+
+.assessment-results-insight strong {
+  color: var(--bea-navy);
+}
+
+.assessment-results-recommendations {
+  margin-bottom: 1.75rem;
+}
+
+.assessment-results-section-title {
+  margin: 0 0 1rem;
+  color: var(--bea-navy);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.assessment-results-recommendation-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.assessment-results-recommendation-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem 1.3rem;
+  background: #fff;
+  border: 1px solid rgba(10, 26, 58, 0.1);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(10, 26, 58, 0.04);
+}
+
+.assessment-results-recommendation-top h3 {
+  margin: 0 0 0.35rem;
+  color: var(--bea-navy);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.assessment-results-recommendation-score {
+  margin: 0;
+  color: rgba(10, 26, 58, 0.65);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.assessment-results-recommendation-text {
+  margin: 0;
+  color: rgba(10, 26, 58, 0.82);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.assessment-results-lowest-item {
+  margin: 0;
+  padding: 0.7rem 0.85rem;
+  background: rgba(139, 16, 16, 0.06);
+  border-radius: 0.55rem;
+  color: rgba(10, 26, 58, 0.8);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.assessment-results-lowest-item a,
+.assessment-results-recommendation-links a,
+.assessment-results-related-resources a {
+  color: var(--bea-red);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.assessment-results-lowest-item a:hover,
+.assessment-results-lowest-item a:focus,
+.assessment-results-recommendation-links a:hover,
+.assessment-results-recommendation-links a:focus,
+.assessment-results-related-resources a:hover,
+.assessment-results-related-resources a:focus {
+  color: #6f0d0d;
+  text-decoration: underline;
+}
+
+.assessment-results-recommendation-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.15rem;
+  font-size: 0.9rem;
+}
+
+.assessment-results-related-resources h4 {
+  margin: 0 0 0.45rem;
+  color: var(--bea-navy);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.assessment-results-related-resources ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.assessment-results-related-resources li {
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.assessment-results-related-resources li:last-child {
+  margin-bottom: 0;
+}
+
+.assessment-results-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
 @media (max-width: 767.98px) {
   .assessment-score-row {
     grid-template-columns: 1fr;
@@ -3558,6 +3988,54 @@ body {
   .assessment-review-edit,
   .assessment-thanks-actions .btn {
     width: 100%;
+  }
+
+  .assessment-results-charts,
+  .assessment-results-insight-grid,
+  .assessment-results-recommendation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .assessment-results-actions {
+    flex-direction: column;
+  }
+
+  .assessment-results-actions .btn {
+    width: 100%;
+  }
+
+  .assessment-results-table thead {
+    display: none;
+  }
+
+  .assessment-results-table tr {
+    display: block;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(10, 26, 58, 0.1);
+  }
+
+  .assessment-results-table tbody tr:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .assessment-results-table td {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.4rem 0;
+    border-bottom: 0;
+  }
+
+  .assessment-results-table td::before {
+    content: attr(data-label);
+    color: rgba(10, 26, 58, 0.55);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
   }
 }
 

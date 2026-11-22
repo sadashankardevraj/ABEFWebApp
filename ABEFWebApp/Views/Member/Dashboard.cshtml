@@ -26,6 +26,26 @@
         </div>
     }
 
+    @if (Model.LatestResult is not null)
+    {
+        <article class="dashboard-latest-result">
+            <div class="dashboard-latest-result-main">
+                <h2>Your latest result</h2>
+                <div class="dashboard-latest-result-score">
+                    <span class="dashboard-latest-result-pct">@Model.LatestResult.OverallPercentage.ToString("0")%</span>
+                    <span class="assessment-results-level-badge">@Model.LatestResult.OverallLevel</span>
+                </div>
+                <p class="dashboard-latest-result-date">
+                    Submitted @Model.LatestResult.SubmittedAt.ToLocalTime().ToString("d MMMM yyyy")
+                </p>
+            </div>
+            <a class="dashboard-latest-result-link"
+               asp-controller="Assessment"
+               asp-action="Results"
+               asp-route-id="@Model.LatestResult.AssessmentId">View results</a>
+        </article>
+    }
+
     <div class="dashboard-grid">
         <a class="dashboard-card" asp-controller="KnowledgeHub" asp-action="Index">
             <i class="bi bi-journal-bookmark-fill" aria-hidden="true"></i>

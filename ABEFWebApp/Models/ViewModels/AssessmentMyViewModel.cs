@@ -12,5 +12,6 @@ public class AssessmentListItemViewModel
     public DateTime StartedAt { get; init; }
     public string Status { get; init; } = string.Empty;
     public int CurrentCategory { get; init; }
+    public decimal? OverallPercentage { get; init; }
     public bool IsDraft => string.Equals(Status, "Draft", StringComparison.OrdinalIgnoreCase);
 }

@@ -1,6 +1,7 @@
 using ABEFWebApp.Data;
 using ABEFWebApp.Models;
 using ABEFWebApp.Models.ViewModels;
+using ABEFWebApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,16 @@ public class MemberController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly ApplicationDbContext _db;
+    private readonly ResultsService _resultsService;
 
-    public MemberController(UserManager<ApplicationUser> userManager, ApplicationDbContext db)
+    public MemberController(
+        UserManager<ApplicationUser> userManager,
+        ApplicationDbContext db,
+        ResultsService resultsService)
     {
         _userManager = userManager;
         _db = db;
+        _resultsService = resultsService;
     }
 
     public async Task<IActionResult> Dashboard()
@@ -45,6 +51,8 @@ public class MemberController : Controller
             })
             .ToListAsync();
 
+        var latestResult = await _resultsService.GetLatestSubmittedResultAsync(user.Id);
+
         var viewModel = new MemberDashboardViewModel
         {
             FirstName = string.IsNullOrWhiteSpace(user.FirstName) ? "Member" : user.FirstName,
@@ -54,6 +62,7 @@ public class MemberController : Controller
                 || string.IsNullOrWhiteSpace(user.Organisation),
             CanReviewAssessments = canReview,
             IsAdmin = isAdmin,
+            LatestResult = latestResult,
             UpcomingEvents = upcomingEvents
         };
 

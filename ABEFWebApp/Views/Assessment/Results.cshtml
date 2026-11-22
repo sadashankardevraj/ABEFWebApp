@@ -1,0 +1,277 @@
+@model ABEFWebApp.Models.ViewModels.AssessmentResultsViewModel
+@using System.Text.Json
+@{
+    ViewData["Title"] = "Assessment Results";
+    var chartLabels = Model.Categories.Select(c => c.Number.ToString()).ToArray();
+    var chartNames = Model.Categories.Select(c => c.Name).ToArray();
+    var chartScores = Model.Categories.Select(c => (double)c.Average).ToArray();
+    var chartJson = JsonSerializer.Serialize(new
+    {
+        labels = chartLabels,
+        names = chartNames,
+        scores = chartScores
+    });
+}
+
+<section class="abef-page assessment-results-page">
+    <div class="container">
+        <header class="assessment-results-header">
+            <h1 class="abef-page-title">Assessment Results</h1>
+            <p class="assessment-org-line">@Model.OrganisationName</p>
+            <p class="assessment-results-submitted">
+                Submitted @Model.SubmittedAt.ToLocalTime().ToString("d MMMM yyyy, h:mm tt")
+            </p>
+        </header>
+
+        <article class="assessment-results-summary">
+            <div class="assessment-results-summary-score">
+                <span class="assessment-results-pct">@Model.OverallPercentage.ToString("0")%</span>
+                <span class="assessment-results-level-badge">@Model.OverallLevel</span>
+            </div>
+            <p class="assessment-results-summary-text">@Model.SummarySentence</p>
+            <p class="assessment-results-avg-note">Overall average: @Model.OverallAverage.ToString("0.0") / 5</p>
+        </article>
+
+        <div class="assessment-results-charts">
+            <article class="assessment-results-chart-card">
+                <h2>Category scores</h2>
+                <div class="assessment-results-chart-wrap">
+                    <canvas id="resultsBarChart" aria-label="Bar chart of category scores"></canvas>
+                </div>
+            </article>
+            <article class="assessment-results-chart-card">
+                <h2>Score profile</h2>
+                <div class="assessment-results-chart-wrap assessment-results-radar-wrap">
+                    <canvas id="resultsRadarChart" aria-label="Radar chart of category scores"></canvas>
+                </div>
+            </article>
+        </div>
+
+        <article class="assessment-results-table-card">
+            <h2>Score by category</h2>
+            <div class="assessment-results-table-wrap">
+                <table class="assessment-results-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Category</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Average</th>
+                            <th scope="col">Percentage</th>
+                            <th scope="col">Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <tr>
+                                <td data-label="Category">
+                                    <span class="assessment-results-cat-num">@category.Number</span>
+                                    @category.Name
+                                </td>
+                                <td data-label="Type">
+                                    <span class="assessment-type-badge type-@category.Type.ToLowerInvariant()">@category.Type</span>
+                                </td>
+                                <td data-label="Average">@category.Average.ToString("0.0")</td>
+                                <td data-label="Percentage">
+                                    <div class="assessment-results-pct-cell">
+                                        <div class="assessment-results-bar" role="presentation">
+                                            <span style="width: @category.Percentage.ToString(System.Globalization.CultureInfo.InvariantCulture)%"></span>
+                                        </div>
+                                        <span>@category.Percentage.ToString("0.0")%</span>
+                                    </div>
+                                </td>
+                                <td data-label="Level">@category.Level</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </article>
+
+        <div class="assessment-results-insight-grid">
+            <article class="assessment-results-insight is-strength">
+                <h2>Strengths</h2>
+                <ul>
+                    @foreach (var item in Model.Strengths)
+                    {
+                        <li>
+                            <strong>@item.Number. @item.Name</strong>
+                            <span>@item.Average.ToString("0.0") — @item.Level</span>
+                        </li>
+                    }
+                </ul>
+            </article>
+            <article class="assessment-results-insight is-improve">
+                <h2>Areas to improve</h2>
+                <ul>
+                    @foreach (var item in Model.AreasToImprove)
+                    {
+                        <li>
+                            <strong>@item.Number. @item.Name</strong>
+                            <span>@item.Average.ToString("0.0") — @item.Level</span>
+                        </li>
+                    }
+                </ul>
+            </article>
+        </div>
+
+        @if (Model.Recommendations.Count > 0)
+        {
+            <section class="assessment-results-recommendations">
+                <h2 class="assessment-results-section-title">Recommendations</h2>
+                <div class="assessment-results-recommendation-grid">
+                    @foreach (var rec in Model.Recommendations)
+                    {
+                        <article class="assessment-results-recommendation-card">
+                            <header class="assessment-results-recommendation-top">
+                                <h3>@rec.CategoryNumber. @rec.CategoryName</h3>
+                                <p class="assessment-results-recommendation-score">
+                                    @rec.Average.ToString("0.0") — @rec.Level
+                                </p>
+                            </header>
+                            <p class="assessment-results-recommendation-text">@rec.Recommendation</p>
+
+                            @if (!string.IsNullOrWhiteSpace(rec.LowestItemCode) && rec.LowestItemScore.HasValue)
+                            {
+                                <p class="assessment-results-lowest-item">
+                                    Item @rec.LowestItemCode scored @rec.LowestItemScore @rec.LowestItemLevel
+                                    —
+                                    <a asp-controller="Items"
+                                       asp-action="Details"
+                                       asp-route-code="@rec.LowestItemCode">View item deep dive</a>
+                                </p>
+                            }
+
+                            <div class="assessment-results-recommendation-links">
+                                <a asp-controller="Categories"
+                                   asp-action="Details"
+                                   asp-route-number="@rec.CategoryNumber">Explore this category</a>
+                                <a asp-controller="Abef" asp-action="Adri">Learn ADRI</a>
+                            </div>
+
+                            @if (rec.Resources.Count > 0)
+                            {
+                                <div class="assessment-results-related-resources">
+                                    <h4>Related resources</h4>
+                                    <ul>
+                                        @foreach (var resource in rec.Resources)
+                                        {
+                                            <li>
+                                                <a asp-controller="KnowledgeHub"
+                                                   asp-action="Resource"
+                                                   asp-route-id="@resource.Id">@resource.Title</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                        </article>
+                    }
+                </div>
+            </section>
+        }
+
+        <div class="assessment-results-actions">
+            <a class="btn btn-member"
+               asp-controller="Assessment"
+               asp-action="ExportPdf"
+               asp-route-id="@Model.AssessmentId">Download PDF</a>
+            <a class="btn btn-member-outline"
+               asp-controller="Assessment"
+               asp-action="ExportCsv"
+               asp-route-id="@Model.AssessmentId">Download CSV</a>
+            <a class="btn btn-member-outline"
+               asp-controller="Assessment"
+               asp-action="My">Back to My Assessments</a>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script>
+        (function () {
+            const data = @Html.Raw(chartJson);
+            const red = '#8B1010';
+            const redFill = 'rgba(139, 16, 16, 0.18)';
+            const navy = '#0A1A3A';
+
+            const sharedTooltip = {
+                callbacks: {
+                    title: function (items) {
+                        const index = items[0].dataIndex;
+                        return data.labels[index] + '. ' + data.names[index];
+                    }
+                }
+            };
+
+            new Chart(document.getElementById('resultsBarChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Average score',
+                        data: data.scores,
+                        backgroundColor: red,
+                        borderRadius: 6,
+                        maxBarThickness: 42
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 5,
+                            ticks: { stepSize: 1, color: navy },
+                            grid: { color: 'rgba(10, 26, 58, 0.08)' }
+                        },
+                        x: {
+                            ticks: { color: navy },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: sharedTooltip
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('resultsRadarChart'), {
+                type: 'radar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Average score',
+                        data: data.scores,
+                        borderColor: red,
+                        backgroundColor: redFill,
+                        pointBackgroundColor: red,
+                        pointBorderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 5,
+                            ticks: { stepSize: 1, backdropColor: 'transparent' },
+                            pointLabels: { color: navy, font: { weight: '600' } },
+                            grid: { color: 'rgba(10, 26, 58, 0.1)' },
+                            angleLines: { color: 'rgba(10, 26, 58, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: sharedTooltip
+                    }
+                }
+            });
+        })();
+    </script>
+}

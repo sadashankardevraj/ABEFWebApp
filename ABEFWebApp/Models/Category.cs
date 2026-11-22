@@ -26,6 +26,9 @@ public class Category
     [MaxLength(500)]
     public string? Tips { get; set; }
 
+    [MaxLength(800)]
+    public string? Recommendation { get; set; }
+
     public ICollection<Item> Items { get; set; } = new List<Item>();
 
     public ICollection<CategoryPrinciple> CategoryPrinciples { get; set; } = new List<CategoryPrinciple>();

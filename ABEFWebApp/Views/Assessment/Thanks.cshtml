@@ -14,7 +14,10 @@
             </p>
             <div class="assessment-thanks-actions">
                 <a class="btn btn-member" asp-controller="Member" asp-action="Dashboard">Back to Dashboard</a>
-                <button type="button" class="btn btn-member-outline" disabled>View results (coming soon)</button>
+                <a class="btn btn-member-outline"
+                   asp-controller="Assessment"
+                   asp-action="Results"
+                   asp-route-id="@Model.AssessmentId">View results</a>
             </div>
         </div>
     </div>

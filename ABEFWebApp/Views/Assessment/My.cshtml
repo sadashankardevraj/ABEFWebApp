@@ -26,6 +26,7 @@
                             <th scope="col">Organisation</th>
                             <th scope="col">Started</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Score</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -40,6 +41,16 @@
                                         @item.Status
                                     </span>
                                 </td>
+                                <td data-label="Score">
+                                    @if (item.OverallPercentage.HasValue)
+                                    {
+                                        <span class="assessment-my-score">@item.OverallPercentage.Value.ToString("0")%</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="assessment-my-score is-empty">—</span>
+                                    }
+                                </td>
                                 <td data-label="Action">
                                     @if (item.IsDraft)
                                     {
@@ -53,7 +64,7 @@
                                     {
                                         <a class="btn btn-member assessment-my-action"
                                            asp-controller="Assessment"
-                                           asp-action="Thanks"
+                                           asp-action="Results"
                                            asp-route-id="@item.Id">View</a>
                                     }
                                 </td>

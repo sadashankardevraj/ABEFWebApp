@@ -1,6 +1,8 @@
+using System.Text;
 using ABEFWebApp.Data;
 using ABEFWebApp.Models;
 using ABEFWebApp.Models.ViewModels;
+using ABEFWebApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -24,11 +26,16 @@ public class AssessmentController : Controller
 
     private readonly ApplicationDbContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly ResultsService _resultsService;
 
-    public AssessmentController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+    public AssessmentController(
+        ApplicationDbContext db,
+        UserManager<ApplicationUser> userManager,
+        ResultsService resultsService)
     {
         _db = db;
         _userManager = userManager;
+        _resultsService = resultsService;
     }
 
     [HttpGet("")]
@@ -84,6 +91,13 @@ public class AssessmentController : Controller
             })
             .ToListAsync();
 
+        var submittedIds = rows
+            .Where(a => string.Equals(a.Status, "Submitted", StringComparison.OrdinalIgnoreCase))
+            .Select(a => a.Id)
+            .ToList();
+
+        var scores = await _resultsService.GetOverallScoresAsync(submittedIds);
+
         var assessments = rows
             .Select(a => new AssessmentListItemViewModel
             {
@@ -91,7 +105,10 @@ public class AssessmentController : Controller
                 OrganisationName = a.OrganisationName,
                 StartedAt = a.StartedAt,
                 Status = a.Status,
-                CurrentCategory = a.CurrentCategory is >= 1 and <= 7 ? a.CurrentCategory : 1
+                CurrentCategory = a.CurrentCategory is >= 1 and <= 7 ? a.CurrentCategory : 1,
+                OverallPercentage = scores.TryGetValue(a.Id, out var score)
+                    ? score.OverallPercentage
+                    : null
             })
             .ToList();
 
@@ -370,6 +387,65 @@ public class AssessmentController : Controller
             OrganisationName = assessment.OrganisationName,
             SubmittedAt = assessment.SubmittedAt.Value
         });
+    }
+
+    [HttpGet("Results/{id:int}")]
+    public async Task<IActionResult> Results(int id)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user is null)
+        {
+            return Challenge();
+        }
+
+        var viewModel = await _resultsService.BuildAsync(id, user.Id);
+        if (viewModel is null)
+        {
+            return NotFound();
+        }
+
+        return View(viewModel);
+    }
+
+    [HttpGet("ExportCsv/{id:int}")]
+    public async Task<IActionResult> ExportCsv(int id)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user is null)
+        {
+            return Challenge();
+        }
+
+        var viewModel = await _resultsService.BuildAsync(id, user.Id);
+        if (viewModel is null)
+        {
+            return NotFound();
+        }
+
+        var csv = ResultsService.BuildCsv(viewModel);
+        var bytes = Encoding.UTF8.GetPreamble().Concat(Encoding.UTF8.GetBytes(csv)).ToArray();
+        var fileName = ResultsService.BuildExportFileName(viewModel, "csv");
+        return File(bytes, "text/csv; charset=utf-8", fileName);
+    }
+
+    [HttpGet("ExportPdf/{id:int}")]
+    public async Task<IActionResult> ExportPdf(int id)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user is null)
+        {
+            return Challenge();
+        }
+
+        var viewModel = await _resultsService.BuildAsync(id, user.Id);
+        if (viewModel is null)
+        {
+            return NotFound();
+        }
+
+        var pdf = _resultsService.BuildPdf(viewModel);
+        var fileName = ResultsService.BuildExportFileName(viewModel, "pdf");
+        return File(pdf, "application/pdf", fileName);
     }
 
     private async Task<Assessment?> GetOwnedAssessmentAsync(int id, string userId, bool track = false)

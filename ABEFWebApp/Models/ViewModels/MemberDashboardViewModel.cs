@@ -8,6 +8,7 @@ public class MemberDashboardViewModel
     public bool ShowProfileNote { get; init; }
     public bool CanReviewAssessments { get; init; }
     public bool IsAdmin { get; init; }
+    public AssessmentLatestResultViewModel? LatestResult { get; init; }
     public IReadOnlyList<DashboardEventViewModel> UpcomingEvents { get; init; } = [];
 }
 

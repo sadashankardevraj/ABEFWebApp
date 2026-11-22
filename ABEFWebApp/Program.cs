@@ -4,6 +4,9 @@ using ABEFWebApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using QuestPDF.Infrastructure;
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +44,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddTransient<IEmailSender, FileEmailSender>();
+builder.Services.AddScoped<ResultsService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

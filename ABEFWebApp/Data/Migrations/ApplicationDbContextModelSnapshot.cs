@@ -371,6 +371,10 @@ namespace ABEFWebApp.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<string>("Recommendation")
+                        .HasMaxLength(800)
+                        .HasColumnType("nvarchar(800)");
+
                     b.Property<string>("ShortDescription")
                         .IsRequired()
                         .HasMaxLength(300)
@@ -399,6 +403,7 @@ namespace ABEFWebApp.Data.Migrations
                             Name = "Leadership, Culture and Governance",
                             Number = 1,
                             Purpose = "This category looks at how leaders set direction, model behaviour and oversee the organisation. It also covers culture and the systems that keep decisions honest and accountable.",
+                            Recommendation = "Revisit how leaders set expectations and oversee decisions. Ask teams where governance feels unclear, then use ADRI to strengthen one leadership or culture practice.",
                             ShortDescription = "Sets direction, culture and good governance.",
                             Tips = "Ask leaders how they show the values day to day.|Check that governance roles and decisions are clear.|Look for evidence that culture supports the stated purpose.",
                             Type = "Driver"
@@ -409,6 +414,7 @@ namespace ABEFWebApp.Data.Migrations
                             Name = "Customers and other Stakeholders",
                             Number = 2,
                             Purpose = "This category focuses on knowing who you serve and what they value. It covers how relationships are managed and how feedback shapes better outcomes.",
+                            Recommendation = "Map your main customers and stakeholders and check that value is defined in their terms. Gather fresh feedback, then use ADRI to improve one relationship or service experience.",
                             ShortDescription = "Understands and delivers value to customers and other stakeholders.",
                             Tips = "Map who your main customers and stakeholders are.|Review how often you listen to their feedback.|Check whether value is defined in their terms, not only yours.",
                             Type = "Driver"
@@ -419,6 +425,7 @@ namespace ABEFWebApp.Data.Migrations
                             Name = "Strategy and Planning",
                             Number = 3,
                             Purpose = "This category is about turning direction into practical plans. It links the wider environment, stakeholder needs and the organisation’s ability to deliver.",
+                            Recommendation = "Test whether plans reflect real pressures and stakeholder needs. Confirm goals cascade into team actions, then use ADRI to tighten one planning cycle.",
                             ShortDescription = "Turns direction into clear plans and goals.",
                             Tips = "Test whether plans reflect real external pressures.|Confirm goals cascade into team actions.|Review progress on a fixed cycle, not only at year end.",
                             Type = "Enabler"
@@ -429,6 +436,7 @@ namespace ABEFWebApp.Data.Migrations
                             Name = "People",
                             Number = 4,
                             Purpose = "This category covers how the organisation builds capability through its people. It includes development, effectiveness and creating a workplace people want to stay in.",
+                            Recommendation = "Review how people are developed and supported. Ask staff what helps them do their best work and use ADRI to plan one improvement.",
                             ShortDescription = "Develops, supports and engages the workforce.",
                             Tips = "Link people plans to strategy, not only to HR routines.|Ask teams what helps or blocks their best work.|Track engagement and wellbeing alongside performance.",
                             Type = "Enabler"
@@ -439,6 +447,7 @@ namespace ABEFWebApp.Data.Migrations
                             Name = "Information and Knowledge",
                             Number = 5,
                             Purpose = "This category looks at how data and knowledge support better decisions. It also covers sharing learning and using technology to create value.",
+                            Recommendation = "Confirm leaders share the same core measures and that useful knowledge is easy to find. Remove noise from the data that matters most, then use ADRI to improve one information practice.",
                             ShortDescription = "Uses data and knowledge to make better decisions.",
                             Tips = "Confirm leaders use the same core measures.|Separate noise from the data that really matters.|Make knowledge easy to find and reuse across teams.",
                             Type = "Enabler"
@@ -449,6 +458,7 @@ namespace ABEFWebApp.Data.Migrations
                             Name = "Process Management, Improvement and Innovation",
                             Number = 6,
                             Purpose = "This category is about how work flows through clear, managed processes. It includes suppliers and partners, and how processes are improved or reinvented over time.",
+                            Recommendation = "Name owners for the processes that matter most and map where handoffs slow work down. Protect time for both small fixes and bigger ideas, then use ADRI on one process.",
                             ShortDescription = "Designs, improves and innovates how work gets done.",
                             Tips = "Name process owners for the work that matters most.|Map handoffs where delays or defects appear.|Protect time for both small fixes and bigger innovation.",
                             Type = "Enabler"
@@ -459,6 +469,7 @@ namespace ABEFWebApp.Data.Migrations
                             Name = "Results and Sustainable Performance",
                             Number = 7,
                             Purpose = "This category examines the results the organisation achieves and whether they hold up over time. It links measures, communication and long-term sustainability.",
+                            Recommendation = "Balance short-term wins with measures that show lasting performance. Share results so people can act, then use ADRI to strengthen how one key outcome is tracked and reviewed.",
                             ShortDescription = "Measures outcomes and long-term performance.",
                             Tips = "Balance short-term wins with longer-term indicators.|Share results in a way people can act on.|Ask whether today’s success could still be true in three years.",
                             Type = "Result"
