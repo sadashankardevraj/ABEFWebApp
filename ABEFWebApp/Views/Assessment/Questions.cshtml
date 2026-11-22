@@ -1,0 +1,171 @@
+@model ABEFWebApp.Models.ViewModels.AssessmentQuestionsViewModel
+@{
+    ViewData["Title"] = $"Category {Model.CategoryNumber}";
+
+    string BadgeClass(string type) => type.ToLowerInvariant() switch
+    {
+        "driver" => "abef-label-driver",
+        "enabler" => "abef-label-enabler",
+        "result" => "abef-label-result",
+        _ => "abef-label-driver"
+    };
+
+    var scoreLabels = new (int Value, string Label)[]
+    {
+        (1, "Not evident"),
+        (2, "Limited"),
+        (3, "Developing"),
+        (4, "Established"),
+        (5, "Leading")
+    };
+}
+
+<section class="abef-page assessment-questions-page">
+    <div class="container">
+        <div class="assessment-progress">
+            <div class="assessment-progress-top">
+                <span>Category @Model.CategoryNumber of 7</span>
+                <span>@Model.ProgressPercent%</span>
+            </div>
+            <div class="assessment-progress-track" role="progressbar"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="@Model.ProgressPercent">
+                <div class="assessment-progress-fill" style="width: @Model.ProgressPercent%"></div>
+            </div>
+        </div>
+
+        <div class="assessment-category-heading">
+            <p class="item-page-eyebrow">Category @Model.CategoryNumber</p>
+            <div class="category-hub-title-row">
+                <h1 class="abef-page-title category-hub-title">@Model.CategoryName</h1>
+                <span class="abef-category-label category-hub-badge @BadgeClass(Model.CategoryType)">@Model.CategoryType</span>
+            </div>
+            <p class="assessment-org-line">Organisation: @Model.OrganisationName</p>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.ValidationMessage))
+        {
+            <p class="assessment-validation" role="alert">@Model.ValidationMessage</p>
+        }
+
+        <form method="post"
+              asp-controller="Assessment"
+              asp-action="Questions"
+              asp-route-id="@Model.AssessmentId"
+              asp-route-category="@Model.CategoryNumber"
+              class="assessment-questions-form">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="AssessmentId" value="@Model.AssessmentId" />
+            <input type="hidden" name="CategoryNumber" value="@Model.CategoryNumber" />
+            <input type="hidden" name="CategoryName" value="@Model.CategoryName" />
+            <input type="hidden" name="CategoryType" value="@Model.CategoryType" />
+            <input type="hidden" name="OrganisationName" value="@Model.OrganisationName" />
+            <input type="hidden" name="ProgressPercent" value="@Model.ProgressPercent" />
+
+            @for (var i = 0; i < Model.Answers.Count; i++)
+            {
+                var answer = Model.Answers[i];
+                var commentOpen = !string.IsNullOrWhiteSpace(answer.Comment);
+                <article class="assessment-question-card">
+                    <input type="hidden" name="Answers[@i].QuestionId" value="@answer.QuestionId" />
+                    <input type="hidden" name="Answers[@i].ItemCode" value="@answer.ItemCode" />
+                    <input type="hidden" name="Answers[@i].ItemName" value="@answer.ItemName" />
+                    <input type="hidden" name="Answers[@i].QuestionText" value="@answer.QuestionText" />
+
+                    <div class="assessment-question-top">
+                        <span class="abef-category-number">@answer.ItemCode</span>
+                        <h2>@answer.ItemName</h2>
+                    </div>
+                    <p class="assessment-question-text">@answer.QuestionText</p>
+
+                    <fieldset class="assessment-score-fieldset">
+                        <legend class="visually-hidden">Score for @answer.ItemCode</legend>
+                        <div class="assessment-score-row" role="radiogroup" aria-label="Score for @answer.ItemCode">
+                            @foreach (var score in scoreLabels)
+                            {
+                                var inputId = $"Answers_{i}__Score_{score.Value}";
+                                <div class="assessment-score-option">
+                                    @if (answer.Score == score.Value)
+                                    {
+                                        <input class="assessment-score-input"
+                                               type="radio"
+                                               name="Answers[@i].Score"
+                                               id="@inputId"
+                                               value="@score.Value"
+                                               checked="checked" />
+                                    }
+                                    else
+                                    {
+                                        <input class="assessment-score-input"
+                                               type="radio"
+                                               name="Answers[@i].Score"
+                                               id="@inputId"
+                                               value="@score.Value" />
+                                    }
+                                    <label class="assessment-score-btn" for="@inputId">
+                                        <span class="assessment-score-num">@score.Value</span>
+                                        <span class="assessment-score-label">@score.Label</span>
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </fieldset>
+
+                    <button type="button"
+                            class="assessment-comment-toggle"
+                            data-target="comment-@answer.QuestionId"
+                            aria-expanded="@(commentOpen ? "true" : "false")">
+                        Add a comment (optional)
+                    </button>
+                    <div id="comment-@answer.QuestionId"
+                         class="assessment-comment-panel @(commentOpen ? null : "d-none")">
+                        <label class="visually-hidden" for="Answers_@(i)__Comment">Comment</label>
+                        <textarea id="Answers_@(i)__Comment"
+                                  name="Answers[@i].Comment"
+                                  class="form-control"
+                                  rows="3"
+                                  maxlength="1000"
+                                  placeholder="Optional notes for this item">@answer.Comment</textarea>
+                    </div>
+
+                    <a class="assessment-learn-link"
+                       href="/Items/@answer.ItemCode"
+                       target="_blank"
+                       rel="noopener noreferrer">Learn about this item</a>
+                </article>
+            }
+
+            <div class="assessment-nav-actions">
+                @if (Model.CategoryNumber > 1)
+                {
+                    <button type="submit" name="navAction" value="previous" class="btn btn-member-outline" formnovalidate>Previous</button>
+                }
+                else
+                {
+                    <span></span>
+                }
+
+                <div class="assessment-nav-right">
+                    <button type="submit" name="navAction" value="save" class="btn btn-member-outline" formnovalidate>Save and exit</button>
+                    <button type="submit" name="navAction" value="next" class="btn btn-member">
+                        @(Model.IsLastCategory ? "Review answers" : "Next")
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.assessment-comment-toggle').forEach((button) => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                const panel = targetId ? document.getElementById(targetId) : null;
+                if (!panel) return;
+                const isHidden = panel.classList.contains('d-none');
+                panel.classList.toggle('d-none', !isHidden);
+                button.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+            });
+        });
+    </script>
+}

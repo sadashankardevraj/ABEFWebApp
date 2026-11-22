@@ -1,0 +1,43 @@
+@model ABEFWebApp.Models.ViewModels.AssessmentSubmitViewModel
+@{
+    ViewData["Title"] = "Submit Assessment";
+}
+
+<section class="abef-page assessment-submit-page">
+    <div class="container">
+        <h1 class="abef-page-title">Submit Assessment</h1>
+        <p class="abef-page-lead">Confirm and submit your organisational self-assessment.</p>
+
+        <article class="item-panel-card assessment-submit-card">
+            <h2>Ready to submit?</h2>
+            <p>Organisation: <strong>@Model.OrganisationName</strong></p>
+            <p class="assessment-submit-warning">Once submitted, you cannot change your answers.</p>
+
+            <form method="post"
+                  asp-controller="Assessment"
+                  asp-action="Submit"
+                  asp-route-id="@Model.AssessmentId">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="AssessmentId" />
+                <input type="hidden" asp-for="OrganisationName" />
+
+                <div class="form-check assessment-confirm-check">
+                    <input class="form-check-input" asp-for="Confirmed" />
+                    <label class="form-check-label" asp-for="Confirmed"></label>
+                </div>
+                <span asp-validation-for="Confirmed" class="text-danger d-block mb-3"></span>
+
+                <button type="submit" class="btn btn-member">Submit Assessment</button>
+            </form>
+        </article>
+
+        <a class="abef-back-link"
+           asp-controller="Assessment"
+           asp-action="Review"
+           asp-route-id="@Model.AssessmentId">← Back to Review</a>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

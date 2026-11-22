@@ -16,6 +16,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Resource> Resources => Set<Resource>();
     public DbSet<GlossaryTerm> GlossaryTerms => Set<GlossaryTerm>();
     public DbSet<Faq> Faqs => Set<Faq>();
+    public DbSet<AssessmentQuestion> AssessmentQuestions => Set<AssessmentQuestion>();
+    public DbSet<Assessment> Assessments => Set<Assessment>();
+    public DbSet<AssessmentAnswer> AssessmentAnswers => Set<AssessmentAnswer>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -52,6 +55,43 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<Item>(entity =>
         {
             entity.HasIndex(i => i.Code).IsUnique();
+        });
+
+        builder.Entity<AssessmentQuestion>(entity =>
+        {
+            entity.HasIndex(q => q.ItemId).IsUnique();
+            entity.HasIndex(q => q.SortOrder);
+
+            entity.HasOne(q => q.Item)
+                .WithMany()
+                .HasForeignKey(q => q.ItemId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        builder.Entity<Assessment>(entity =>
+        {
+            entity.HasIndex(a => a.UserId);
+            entity.HasIndex(a => a.Status);
+
+            entity.HasOne(a => a.User)
+                .WithMany()
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<AssessmentAnswer>(entity =>
+        {
+            entity.HasIndex(a => new { a.AssessmentId, a.QuestionId }).IsUnique();
+
+            entity.HasOne(a => a.Assessment)
+                .WithMany(assessment => assessment.Answers)
+                .HasForeignKey(a => a.AssessmentId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(a => a.Question)
+                .WithMany(q => q.Answers)
+                .HasForeignKey(a => a.QuestionId)
+                .OnDelete(DeleteBehavior.Restrict);
         });
 
         builder.Entity<Principle>(entity =>
@@ -916,6 +956,155 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 SortOrder = 8,
                 Question = "How do I contact BEA?",
                 Answer = "Use the Contact Us page on this site to send a message. You can also reach BEA through the contact details listed in membership and event communications."
+            });
+
+        builder.Entity<AssessmentQuestion>().HasData(
+            new AssessmentQuestion
+            {
+                Id = 1,
+                ItemId = 1,
+                SortOrder = 1,
+                QuestionText = "How well do leaders set clear expectations and govern the whole organisation?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 2,
+                ItemId = 2,
+                SortOrder = 2,
+                QuestionText = "How well do leaders shape a culture that supports excellence every day?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 3,
+                ItemId = 3,
+                SortOrder = 3,
+                QuestionText = "How well does a clear purpose and vision guide the organisation?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 4,
+                ItemId = 4,
+                SortOrder = 4,
+                QuestionText = "How well does the organisation act responsibly toward society, community and the environment?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 5,
+                ItemId = 5,
+                SortOrder = 5,
+                QuestionText = "How well does the organisation understand its markets, customers and other stakeholders?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 6,
+                ItemId = 6,
+                SortOrder = 6,
+                QuestionText = "How well are relationships with customers and other stakeholders managed?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 7,
+                ItemId = 7,
+                SortOrder = 7,
+                QuestionText = "How well does the organisation measure how customers and stakeholders judge the value they receive?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 8,
+                ItemId = 8,
+                SortOrder = 8,
+                QuestionText = "How well do leaders understand the wider environment and the organisation’s capability?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 9,
+                ItemId = 9,
+                SortOrder = 9,
+                QuestionText = "How well are plans shaped by what stakeholders need and expect?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 10,
+                ItemId = 10,
+                SortOrder = 10,
+                QuestionText = "How well does planning turn direction into practical goals and actions?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 11,
+                ItemId = 11,
+                SortOrder = 11,
+                QuestionText = "How well is people capability built to meet the organisation’s goals?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 12,
+                ItemId = 12,
+                SortOrder = 12,
+                QuestionText = "How well are people supported to grow and perform effectively?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 13,
+                ItemId = 13,
+                SortOrder = 13,
+                QuestionText = "How well does the workplace support wellbeing, engagement and pride in work?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 14,
+                ItemId = 14,
+                SortOrder = 14,
+                QuestionText = "How well is the right data gathered and analysed to guide decisions?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 15,
+                ItemId = 15,
+                SortOrder = 15,
+                QuestionText = "How well is knowledge used in ways that create real value?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 16,
+                ItemId = 16,
+                SortOrder = 16,
+                QuestionText = "How well are technology and new ideas used to improve how work is done?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 17,
+                ItemId = 17,
+                SortOrder = 17,
+                QuestionText = "How well are key organisational processes identified, owned and managed?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 18,
+                ItemId = 18,
+                SortOrder = 18,
+                QuestionText = "How well are processes with suppliers and stakeholders managed?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 19,
+                ItemId = 19,
+                SortOrder = 19,
+                QuestionText = "How well are processes improved and innovated over time?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 20,
+                ItemId = 20,
+                SortOrder = 20,
+                QuestionText = "How well are organisational results measured and communicated?"
+            },
+            new AssessmentQuestion
+            {
+                Id = 21,
+                ItemId = 21,
+                SortOrder = 21,
+                QuestionText = "How well is performance sustained for the long term, not only short-term gains?"
             });
     }
 }

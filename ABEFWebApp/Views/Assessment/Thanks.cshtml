@@ -1,0 +1,21 @@
+@model ABEFWebApp.Models.ViewModels.AssessmentThanksViewModel
+@{
+    ViewData["Title"] = "Assessment submitted";
+}
+
+<section class="abef-page assessment-thanks-page">
+    <div class="container">
+        <div class="assessment-thanks-panel">
+            <i class="bi bi-check-circle-fill assessment-thanks-icon" aria-hidden="true"></i>
+            <h1 class="abef-page-title">Assessment submitted</h1>
+            <p class="abef-page-lead">
+                Thank you. Your assessment for <strong>@Model.OrganisationName</strong> was submitted
+                on @Model.SubmittedAt.ToLocalTime().ToString("d MMMM yyyy, h:mm tt").
+            </p>
+            <div class="assessment-thanks-actions">
+                <a class="btn btn-member" asp-controller="Member" asp-action="Dashboard">Back to Dashboard</a>
+                <button type="button" class="btn btn-member-outline" disabled>View results (coming soon)</button>
+            </div>
+        </div>
+    </div>
+</section>

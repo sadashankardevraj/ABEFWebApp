@@ -1,13 +1,105 @@
+@model ABEFWebApp.Models.ViewModels.AssessmentStartViewModel
 @{
-    ViewData["Title"] = "Assessment & Scoring";
+    ViewData["Title"] = "Start Assessment";
 }
 
-<section class="abef-page">
+<section class="abef-page assessment-start-page">
     <div class="container">
-        <h1 class="abef-page-title">Assessment &amp; Scoring</h1>
-        <p class="abef-page-lead">Coming in Week 9</p>
-        <div class="abef-page-actions">
-            <a class="btn btn-member" asp-controller="Member" asp-action="Dashboard">Back to Dashboard</a>
+        <h1 class="abef-page-title">Start Assessment</h1>
+        <p class="abef-page-lead">
+            Check how your organisation is performing across the ABEF.
+        </p>
+
+        @if (Model.HasDraft)
+        {
+            <article class="item-panel-card assessment-draft-card">
+                <h2>You have an assessment in progress</h2>
+                <p>Continue where you left off, or start a new assessment.</p>
+                <div class="assessment-draft-actions">
+                    <a class="btn btn-member"
+                       asp-controller="Assessment"
+                       asp-action="Questions"
+                       asp-route-id="@Model.DraftAssessmentId"
+                       asp-route-category="@Model.DraftCurrentCategory">Continue</a>
+                    <button type="submit"
+                            form="startAssessmentForm"
+                            class="btn btn-member-outline">Start new</button>
+                </div>
+            </article>
+        }
+
+        <article class="item-panel-card assessment-intro-card">
+            <h2>Organisational Self-Assessment</h2>
+            <p>
+                Answer the questions to understand current performance across the framework.
+                You will be able to review your responses before final submission and then view results.
+            </p>
+            <ul class="assessment-intro-list">
+                <li>21 questions across 7 categories, about 15-20 minutes</li>
+                <li>You can save and come back later</li>
+                <li>You can review your answers before you submit</li>
+            </ul>
+        </article>
+
+        <h2 class="abef-section-heading">Scoring scale</h2>
+        <div class="assessment-scale-table-wrap">
+            <table class="assessment-scale-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Score</th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Not evident</td>
+                        <td>Little or no practice is visible.</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Limited</td>
+                        <td>Some practice exists, but it is patchy.</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Developing</td>
+                        <td>Practice is growing and becoming clearer.</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Established</td>
+                        <td>Practice is consistent and well managed.</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Leading</td>
+                        <td>Practice is strong, reviewed and improving.</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
+        <form id="startAssessmentForm"
+              method="post"
+              asp-controller="Assessment"
+              asp-action="Start"
+              class="assessment-start-form">
+            @Html.AntiForgeryToken()
+            <div class="assessment-org-field">
+                <label asp-for="OrganisationName" class="form-label"></label>
+                <input asp-for="OrganisationName" class="form-control" autocomplete="organization" />
+                <span asp-validation-for="OrganisationName" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-member">Start Assessment</button>
+        </form>
+
+        <a class="abef-back-link" asp-controller="Member" asp-action="Dashboard">← Back to Dashboard</a>
     </div>
 </section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

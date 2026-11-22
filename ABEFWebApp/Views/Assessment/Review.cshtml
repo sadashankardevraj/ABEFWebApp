@@ -1,0 +1,73 @@
+@model ABEFWebApp.Models.ViewModels.AssessmentReviewViewModel
+@{
+    ViewData["Title"] = "Review Assessment";
+}
+
+<section class="abef-page assessment-review-page">
+    <div class="container">
+        <h1 class="abef-page-title">Review Assessment</h1>
+        <p class="abef-page-lead">Review your answers before submission.</p>
+        <p class="assessment-org-line">Organisation: @Model.OrganisationName</p>
+
+        <div class="assessment-review-list">
+            @foreach (var category in Model.Categories)
+            {
+                <article class="assessment-review-card @(category.IsComplete ? null : "is-incomplete")">
+                    <div class="assessment-review-card-top">
+                        <div>
+                            <h2>
+                                Category @category.Number @category.Name —
+                                @category.AnsweredCount/@category.QuestionCount answered
+                            </h2>
+                            @if (!category.IsComplete)
+                            {
+                                <p class="assessment-review-warning">This category is not complete.</p>
+                            }
+                            else
+                            {
+                                <p class="assessment-review-hint">Review or edit this section.</p>
+                            }
+                        </div>
+                        <a class="btn btn-member assessment-review-edit"
+                           asp-controller="Assessment"
+                           asp-action="Questions"
+                           asp-route-id="@Model.AssessmentId"
+                           asp-route-category="@category.Number">Edit</a>
+                    </div>
+
+                    <ul class="assessment-review-scores">
+                        @foreach (var item in category.Items)
+                        {
+                            <li>
+                                <span class="assessment-review-code">@item.ItemCode</span>
+                                @if (item.Score.HasValue)
+                                {
+                                    <span>— @item.Score @item.ScoreLabel</span>
+                                }
+                                else
+                                {
+                                    <span class="assessment-review-missing">— Not answered</span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </article>
+            }
+        </div>
+
+        <div class="assessment-review-actions">
+            @if (Model.IsComplete)
+            {
+                <a class="btn btn-member"
+                   asp-controller="Assessment"
+                   asp-action="Submit"
+                   asp-route-id="@Model.AssessmentId">Proceed to Submit</a>
+            }
+            else
+            {
+                <button type="button" class="btn btn-member" disabled>Proceed to Submit</button>
+                <p class="assessment-validation">Please answer all 21 questions before submitting.</p>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,69 @@
+@model ABEFWebApp.Models.ViewModels.AssessmentMyViewModel
+@{
+    ViewData["Title"] = "My Assessments";
+}
+
+<section class="abef-page assessment-my-page">
+    <div class="container">
+        <h1 class="abef-page-title">My Assessments</h1>
+        <p class="abef-page-lead">
+            View drafts you can continue and assessments you have already submitted.
+        </p>
+
+        @if (Model.Assessments.Count == 0)
+        {
+            <p class="dashboard-empty">You have not started an assessment yet.</p>
+            <div class="abef-page-actions">
+                <a class="btn btn-member" asp-controller="Assessment" asp-action="Index">Start Assessment</a>
+            </div>
+        }
+        else
+        {
+            <div class="assessment-my-table-wrap">
+                <table class="assessment-my-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Organisation</th>
+                            <th scope="col">Started</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Assessments)
+                        {
+                            <tr>
+                                <td data-label="Organisation">@item.OrganisationName</td>
+                                <td data-label="Started">@item.StartedAt.ToLocalTime().ToString("d MMM yyyy")</td>
+                                <td data-label="Status">
+                                    <span class="assessment-status-badge @(item.IsDraft ? "is-draft" : "is-submitted")">
+                                        @item.Status
+                                    </span>
+                                </td>
+                                <td data-label="Action">
+                                    @if (item.IsDraft)
+                                    {
+                                        <a class="btn btn-member assessment-my-action"
+                                           asp-controller="Assessment"
+                                           asp-action="Questions"
+                                           asp-route-id="@item.Id"
+                                           asp-route-category="@item.CurrentCategory">Continue</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-member assessment-my-action"
+                                           asp-controller="Assessment"
+                                           asp-action="Thanks"
+                                           asp-route-id="@item.Id">View</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        <a class="abef-back-link" asp-controller="Member" asp-action="Dashboard">← Back to Dashboard</a>
+    </div>
+</section>

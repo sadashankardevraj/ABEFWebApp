@@ -101,6 +101,256 @@ namespace ABEFWebApp.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("ABEFWebApp.Models.Assessment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CurrentCategory")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OrganisationName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("StartedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime?>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Assessments");
+                });
+
+            modelBuilder.Entity("ABEFWebApp.Models.AssessmentAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AssessmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.HasIndex("AssessmentId", "QuestionId")
+                        .IsUnique();
+
+                    b.ToTable("AssessmentAnswers");
+                });
+
+            modelBuilder.Entity("ABEFWebApp.Models.AssessmentQuestion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("QuestionText")
+                        .IsRequired()
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId")
+                        .IsUnique();
+
+                    b.HasIndex("SortOrder");
+
+                    b.ToTable("AssessmentQuestions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ItemId = 1,
+                            QuestionText = "How well do leaders set clear expectations and govern the whole organisation?",
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ItemId = 2,
+                            QuestionText = "How well do leaders shape a culture that supports excellence every day?",
+                            SortOrder = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ItemId = 3,
+                            QuestionText = "How well does a clear purpose and vision guide the organisation?",
+                            SortOrder = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ItemId = 4,
+                            QuestionText = "How well does the organisation act responsibly toward society, community and the environment?",
+                            SortOrder = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ItemId = 5,
+                            QuestionText = "How well does the organisation understand its markets, customers and other stakeholders?",
+                            SortOrder = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ItemId = 6,
+                            QuestionText = "How well are relationships with customers and other stakeholders managed?",
+                            SortOrder = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ItemId = 7,
+                            QuestionText = "How well does the organisation measure how customers and stakeholders judge the value they receive?",
+                            SortOrder = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ItemId = 8,
+                            QuestionText = "How well do leaders understand the wider environment and the organisation’s capability?",
+                            SortOrder = 8
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ItemId = 9,
+                            QuestionText = "How well are plans shaped by what stakeholders need and expect?",
+                            SortOrder = 9
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ItemId = 10,
+                            QuestionText = "How well does planning turn direction into practical goals and actions?",
+                            SortOrder = 10
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ItemId = 11,
+                            QuestionText = "How well is people capability built to meet the organisation’s goals?",
+                            SortOrder = 11
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ItemId = 12,
+                            QuestionText = "How well are people supported to grow and perform effectively?",
+                            SortOrder = 12
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ItemId = 13,
+                            QuestionText = "How well does the workplace support wellbeing, engagement and pride in work?",
+                            SortOrder = 13
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ItemId = 14,
+                            QuestionText = "How well is the right data gathered and analysed to guide decisions?",
+                            SortOrder = 14
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ItemId = 15,
+                            QuestionText = "How well is knowledge used in ways that create real value?",
+                            SortOrder = 15
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ItemId = 16,
+                            QuestionText = "How well are technology and new ideas used to improve how work is done?",
+                            SortOrder = 16
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ItemId = 17,
+                            QuestionText = "How well are key organisational processes identified, owned and managed?",
+                            SortOrder = 17
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ItemId = 18,
+                            QuestionText = "How well are processes with suppliers and stakeholders managed?",
+                            SortOrder = 18
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ItemId = 19,
+                            QuestionText = "How well are processes improved and innovated over time?",
+                            SortOrder = 19
+                        },
+                        new
+                        {
+                            Id = 20,
+                            ItemId = 20,
+                            QuestionText = "How well are organisational results measured and communicated?",
+                            SortOrder = 20
+                        },
+                        new
+                        {
+                            Id = 21,
+                            ItemId = 21,
+                            QuestionText = "How well is performance sustained for the long term, not only short-term gains?",
+                            SortOrder = 21
+                        });
+                });
+
             modelBuilder.Entity("ABEFWebApp.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -1494,6 +1744,47 @@ namespace ABEFWebApp.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ABEFWebApp.Models.Assessment", b =>
+                {
+                    b.HasOne("ABEFWebApp.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ABEFWebApp.Models.AssessmentAnswer", b =>
+                {
+                    b.HasOne("ABEFWebApp.Models.Assessment", "Assessment")
+                        .WithMany("Answers")
+                        .HasForeignKey("AssessmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ABEFWebApp.Models.AssessmentQuestion", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Assessment");
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("ABEFWebApp.Models.AssessmentQuestion", b =>
+                {
+                    b.HasOne("ABEFWebApp.Models.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+                });
+
             modelBuilder.Entity("ABEFWebApp.Models.CategoryPrinciple", b =>
                 {
                     b.HasOne("ABEFWebApp.Models.Category", "Category")
@@ -1583,6 +1874,16 @@ namespace ABEFWebApp.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ABEFWebApp.Models.Assessment", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("ABEFWebApp.Models.AssessmentQuestion", b =>
+                {
+                    b.Navigation("Answers");
                 });
 
             modelBuilder.Entity("ABEFWebApp.Models.Category", b =>
